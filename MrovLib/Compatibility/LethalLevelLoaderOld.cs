@@ -9,6 +9,7 @@ namespace MrovLib.Compatibility
 {
   public class LLLOldPlugin(string guid, string version = null) : CompatibilityBase(guid, version)
   {
+    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     public static bool IsTheOldLLLActive()
     {
       return OldLLLLib.Plugin.IsOldLLLPresent;

@@ -5,8 +5,8 @@ namespace MrovLib.Compatibility
 {
   public class CompatibilityBase
   {
-    internal string ModGUID { get; set; }
-    internal string ModVersion { get; set; }
+    public string ModGUID { get; internal set; }
+    public string ModVersion { get; internal set; }
 
     private bool? _enabled;
 
@@ -33,9 +33,14 @@ namespace MrovLib.Compatibility
 
         if (ModVersion != null && (bool)_enabled)
         {
-          _enabled = Chainloader.PluginInfos[ModGUID].Metadata.Version.ToString() == ModVersion;
+          if (Chainloader.PluginInfos.TryGetValue(ModGUID, out BepInEx.PluginInfo pluginInfo))
+          {
+            Plugin.logger.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
+            _enabled = pluginInfo.Metadata.Version.ToString() == ModVersion;
+          }
         }
 
+        Plugin.logger.LogDebug($"Returning {_enabled} ({(bool)_enabled})");
         return (bool)_enabled;
       }
     }

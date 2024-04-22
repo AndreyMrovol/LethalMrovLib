@@ -11,9 +11,9 @@ namespace MrovLib
     internal static ManualLogSource logger;
     internal static Harmony harmony = new(PluginInfo.PLUGIN_GUID);
 
-    internal static LLL LLL;
-    internal static LLLOldPlugin LLLOldPlugin;
-    internal static WeatherTweaks WeatherTweaks;
+    public static LLL LLL;
+    public static LLLOldPlugin LLLOldPlugin;
+    public static WeatherTweaks WeatherTweaks;
 
     private void Awake()
     {
@@ -22,6 +22,8 @@ namespace MrovLib
 
       LLL = new("imabatby.lethallevelloader", "1.2.0.0");
       LLLOldPlugin = new("OldLLLLib");
+      // LLLOldPlugin.IsTheOldLLLActive = LLLOldPlugin.IsModPresent;
+
       WeatherTweaks = new("WeatherTweaks");
 
       // Plugin startup logic

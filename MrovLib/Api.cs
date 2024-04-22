@@ -41,16 +41,21 @@ namespace MrovLib.API
 
     public static List<SelectableLevel> GetGameLevels()
     {
+      Plugin.logger.LogWarning("GetGameLevels called");
+
       if (Plugin.LLL.IsModPresent)
       {
+        Plugin.logger.LogDebug($"LLL present");
         return LLL.GetLevels();
       }
       else if (LLLOldPlugin.IsTheOldLLLActive())
       {
+        Plugin.logger.LogDebug($"LLLOld present");
         return LLLOldPlugin.GetSelectableLevels();
       }
       else
       {
+        Plugin.logger.LogDebug($"NOLLL present");
         return StartOfRound.Instance.levels.ToList();
       }
     }

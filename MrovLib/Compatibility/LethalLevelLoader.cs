@@ -16,12 +16,7 @@ namespace MrovLib.Compatibility
 
       // use reflection to call TerminalManager.GetWeatherConditions - must invoke the original method cause of weathertweaks
       // it's internal static method
-      var weatherCondition = typeof(LethalLevelLoader.TerminalManager)
-        .GetMethod("GetWeatherConditions", BindingFlags.NonPublic | BindingFlags.Static)
-        .Invoke(null, new object[] { extendedLevel })
-        .ToString()
-        .Replace("(", "")
-        .Replace(")", "");
+      var weatherCondition = LethalLevelLoader.TerminalManager.GetWeatherConditions(extendedLevel).ToString().Replace("(", "").Replace(")", "");
 
       return weatherCondition;
     }
@@ -29,7 +24,7 @@ namespace MrovLib.Compatibility
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     public static List<SelectableLevel> GetLevels()
     {
-      return LethalLevelLoader.PatchedContent.ExtendedLevels.Select(x => x.selectableLevel).ToList();
+      return LethalLevelLoader.PatchedContent.SeletectableLevels;
     }
 
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
