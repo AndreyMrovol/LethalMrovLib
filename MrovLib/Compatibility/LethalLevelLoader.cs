@@ -12,7 +12,7 @@ namespace MrovLib.Compatibility
     public static string GetWeather(SelectableLevel level)
     {
       // get ExtendedLevel from SelectableLevel
-      ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.selectableLevel == level);
+      ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.SelectableLevel == level);
 
       // use reflection to call TerminalManager.GetWeatherConditions - must invoke the original method cause of weathertweaks
       // it's internal static method
@@ -30,7 +30,7 @@ namespace MrovLib.Compatibility
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     public static bool IsMoonHidden(SelectableLevel level)
     {
-      ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.selectableLevel == level);
+      ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.SelectableLevel == level);
       return extendedLevel.IsRouteHidden;
     }
 
