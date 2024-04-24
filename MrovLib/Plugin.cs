@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using MrovLib.Compatibility;
@@ -10,6 +11,7 @@ namespace MrovLib
   {
     internal static ManualLogSource logger;
     internal static Harmony harmony = new(PluginInfo.PLUGIN_GUID);
+    internal static ConfigFile config;
 
     public static LLL LLL;
     public static LLLOldPlugin LLLOldPlugin;
@@ -19,6 +21,7 @@ namespace MrovLib
     {
       logger = Logger;
       harmony.PatchAll();
+      config = Config;
 
       LLL = new("imabatby.lethallevelloader", "1.2.0.0");
       LLLOldPlugin = new("OldLLLLib");
@@ -28,6 +31,14 @@ namespace MrovLib
 
       // Plugin startup logic
       Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+    }
+
+    internal static void LogDebug(string log)
+    {
+      if (config.Bind("General", "Debug", false).Value)
+      {
+        logger.LogDebug(log);
+      }
     }
   }
 }

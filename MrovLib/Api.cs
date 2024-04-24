@@ -45,17 +45,17 @@ namespace MrovLib.API
 
       if (Plugin.LLL.IsModPresent)
       {
-        Plugin.logger.LogDebug($"LLL present");
+        Plugin.LogDebug($"LLL present");
         return LLL.GetLevels();
       }
       else if (LLLOldPlugin.IsTheOldLLLActive())
       {
-        Plugin.logger.LogDebug($"LLLOld present");
+        Plugin.LogDebug($"LLLOld present");
         return LLLOldPlugin.GetSelectableLevels();
       }
       else
       {
-        Plugin.logger.LogDebug($"NOLLL present");
+        Plugin.LogDebug($"NOLLL present");
         return StartOfRound.Instance.levels.ToList();
       }
     }

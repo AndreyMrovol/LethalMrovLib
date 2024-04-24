@@ -48,7 +48,7 @@ namespace MrovLib.Compatibility
       }
       else
       {
-        Plugin.logger.LogDebug($"Type {Plugin.WeatherTweaks.ModGUID}.Variables not found");
+        Plugin.LogDebug($"Type {Plugin.WeatherTweaks.ModGUID}.Variables not found");
       }
     }
 

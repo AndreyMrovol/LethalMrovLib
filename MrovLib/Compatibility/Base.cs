@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using BepInEx.Bootstrap;
 
@@ -24,7 +25,7 @@ namespace MrovLib.Compatibility
     {
       get
       {
-        Plugin.logger.LogDebug($"IsModPresent called, GUID: {ModGUID}, Enabled: {_enabled}, Version: {ModVersion}");
+        Plugin.LogDebug($"IsModPresent called, GUID: {ModGUID}, Enabled: {_enabled}, Version: {ModVersion}");
 
         if (_enabled == null)
         {
@@ -33,14 +34,16 @@ namespace MrovLib.Compatibility
 
         if (ModVersion != null && (bool)_enabled)
         {
+          // compare semver to match at least provided version
+
           if (Chainloader.PluginInfos.TryGetValue(ModGUID, out BepInEx.PluginInfo pluginInfo))
           {
-            Plugin.logger.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
-            _enabled = pluginInfo.Metadata.Version.ToString() == ModVersion;
+            Plugin.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
+            _enabled = pluginInfo.Metadata.Version >= new Version(ModVersion);
           }
         }
 
-        Plugin.logger.LogDebug($"Returning {_enabled} ({(bool)_enabled})");
+        Plugin.LogDebug($"Returning {_enabled} ({(bool)_enabled})");
         return (bool)_enabled;
       }
     }
