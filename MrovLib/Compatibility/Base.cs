@@ -39,7 +39,16 @@ namespace MrovLib.Compatibility
           if (Chainloader.PluginInfos.TryGetValue(ModGUID, out BepInEx.PluginInfo pluginInfo))
           {
             Plugin.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
-            _enabled = pluginInfo.Metadata.Version >= new Version(ModVersion);
+            // make sure the biggest version (X.0.0.0) matches
+
+            if (pluginInfo.Metadata.Version.Major != new Version(ModVersion).Major)
+            {
+              _enabled = false;
+            }
+            else
+            {
+              _enabled = pluginInfo.Metadata.Version >= new Version(ModVersion);
+            }
           }
         }
 
