@@ -11,14 +11,13 @@ namespace MrovLib.API
     {
       string weather;
 
-      if (Plugin.LLL.IsModPresent)
-      {
-        weather = LLL.GetWeather(level);
-      }
-      // TODO add weathertweaks it's my own fucking mod and i cannot get it to work lol
-      else if (Plugin.WeatherTweaks.IsModPresent)
+      if (Plugin.WeatherTweaks.IsModPresent)
       {
         weather = WeatherTweaks.CurrentWeather(level);
+      }
+      else if (Plugin.LLL.IsModPresent)
+      {
+        weather = LLL.GetWeather(level);
       }
       else
       {
