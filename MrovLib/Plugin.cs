@@ -7,6 +7,7 @@ using MrovLib.Compatibility;
 namespace MrovLib
 {
   [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+  [BepInDependency("OldLLLLib", BepInDependency.DependencyFlags.HardDependency)]
   public class Plugin : BaseUnityPlugin
   {
     internal static ManualLogSource logger;
