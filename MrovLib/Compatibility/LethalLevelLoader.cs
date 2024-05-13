@@ -31,7 +31,21 @@ namespace MrovLib.Compatibility
     public static bool IsMoonHidden(SelectableLevel level)
     {
       ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.SelectableLevel == level);
-      return extendedLevel.IsRouteHidden | extendedLevel.IsRouteLocked;
+      return extendedLevel.IsRouteHidden;
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+    public static bool IsMooonLocked(SelectableLevel level)
+    {
+      ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.SelectableLevel == level);
+      return extendedLevel.IsRouteLocked;
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+    public static List<TerminalNode> GetLevelTerminalNodes(SelectableLevel level)
+    {
+      ExtendedLevel extendedLevel = LethalLevelLoader.PatchedContent.ExtendedLevels.FirstOrDefault(x => x.SelectableLevel == level);
+      return [extendedLevel.RouteNode, extendedLevel.RouteConfirmNode, extendedLevel.InfoNode];
     }
 
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]

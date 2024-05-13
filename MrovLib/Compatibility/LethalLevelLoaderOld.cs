@@ -34,6 +34,12 @@ namespace MrovLib.Compatibility
     }
 
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+    public static bool IsMoonLocked(SelectableLevel level)
+    {
+      return OldLLLLib.LLL.IsMoonLocked(level);
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     public static MoonsCataloguePage GetMoonsCataloguePage()
     {
       return OldLLLLib.LLL.GetMoonsCataloguePage();

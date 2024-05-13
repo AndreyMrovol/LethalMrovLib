@@ -73,6 +73,32 @@ namespace MrovLib.API
       return false;
     }
 
+    public static bool IsMoonLockedLLL(SelectableLevel level)
+    {
+      if (Plugin.LLL.IsModPresent)
+      {
+        return LLL.IsMooonLocked(level);
+      }
+      else if (LLLOldPlugin.IsTheOldLLLActive())
+      {
+        return LLLOldPlugin.IsMoonLocked(level);
+      }
+
+      return false;
+    }
+
+    public static List<TerminalNode> GetLevelTerminalNodes(SelectableLevel level)
+    {
+      if (Plugin.LLL.IsModPresent)
+      {
+        return LLL.GetLevelTerminalNodes(level);
+      }
+      else
+      {
+        return [];
+      }
+    }
+
     public static object GetLLLMoonsCataloguePage()
     {
       if (Plugin.LLL.IsModPresent)
