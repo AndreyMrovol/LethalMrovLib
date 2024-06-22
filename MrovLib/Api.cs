@@ -24,6 +24,8 @@ namespace MrovLib.API
         weather = level.currentWeather.ToString();
       }
 
+      Plugin.LogDebug($"Weather: {weather}");
+
       return weather == "None" ? "" : weather;
     }
 
