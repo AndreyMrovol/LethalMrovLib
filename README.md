@@ -1,7 +1,4 @@
-# LethalCompanyTemplate
+# MrovLib
 
-mrov's template for a Lethal Company mod.
-
-## Credits
-
-This project uses [LethalCompanyTemplate](https://github.com/LethalCompany/LethalCompanyTemplate), licensed under [MIT License](https://github.com/LethalCompany/LethalCompanyTemplate/blob/main/LICENSE).
+A library of useful utilities for modding Lethal Company.
+v49 and v50
