@@ -1,10 +1,6 @@
 name: Release on Nuget
 
-on:
-  workflow_run:
-    workflows: ["Publish"]
-    types:
-      - completed
+on: workflow_call
 
 jobs:
   deploy-nuget:

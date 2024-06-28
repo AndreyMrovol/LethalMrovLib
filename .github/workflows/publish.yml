@@ -25,3 +25,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB }}
         run: gh release upload ${{ github.event.release.tag_name }} thunderstore-build/*/dist/*.zip nupkg-build/*/bin/Release/*.nupkg
+
+  release-thunderstore:
+    uses: ./.github/workflows/release-thunderstore.yml
+
+  release-nuget:
+    uses: ./.github/workflows/release-nuget.yml
