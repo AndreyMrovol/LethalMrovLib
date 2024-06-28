@@ -7,42 +7,42 @@ using OldLLLLib;
 
 namespace MrovLib.Compatibility
 {
-  public class LLLOldPlugin(string guid, string version = null) : CompatibilityBase(guid, version)
-  {
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static bool IsTheOldLLLActive()
-    {
-      return OldLLLLib.Plugin.IsOldLLLPresent;
-    }
+	public class LLLOldPlugin(string guid, string version = null) : CompatibilityBase(guid, version)
+	{
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static bool IsTheOldLLLActive()
+		{
+			return OldLLLLib.Plugin.IsOldLLLPresent;
+		}
 
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static string GetWeather(SelectableLevel level)
-    {
-      return OldLLLLib.LLL.GetWeather(level);
-    }
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static string GetWeather(SelectableLevel level)
+		{
+			return OldLLLLib.LLL.GetWeather(level);
+		}
 
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static List<SelectableLevel> GetSelectableLevels()
-    {
-      return OldLLLLib.LLL.GetSelectableLevels();
-    }
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static List<SelectableLevel> GetSelectableLevels()
+		{
+			return OldLLLLib.LLL.GetSelectableLevels();
+		}
 
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static bool IsMoonHidden(SelectableLevel level)
-    {
-      return OldLLLLib.LLL.IsMoonHidden(level);
-    }
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static bool IsMoonHidden(SelectableLevel level)
+		{
+			return OldLLLLib.LLL.IsMoonHidden(level);
+		}
 
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static bool IsMoonLocked(SelectableLevel level)
-    {
-      return OldLLLLib.LLL.IsMoonLocked(level);
-    }
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static bool IsMoonLocked(SelectableLevel level)
+		{
+			return OldLLLLib.LLL.IsMoonLocked(level);
+		}
 
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static MoonsCataloguePage GetMoonsCataloguePage()
-    {
-      return OldLLLLib.LLL.GetMoonsCataloguePage();
-    }
-  }
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static MoonsCataloguePage GetMoonsCataloguePage()
+		{
+			return OldLLLLib.LLL.GetMoonsCataloguePage();
+		}
+	}
 }
