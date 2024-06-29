@@ -3,8 +3,8 @@ name: Release on Nuget
 on: workflow_call
 
 jobs:
-  deploy-nuget:
-    name: Deploy
+  nuget:
+    name: Upload
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources

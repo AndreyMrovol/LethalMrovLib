@@ -3,8 +3,8 @@ name: Release on Thunderstore
 on: workflow_call
 
 jobs:
-  deploy-thunderstore:
-    name: Deploy
+  thunderstore:
+    name: Upload
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
