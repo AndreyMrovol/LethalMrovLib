@@ -56,19 +56,14 @@
         <PackageReference Include="LethalCompany.GameLibs.Steam" Version="50.0.1-ngd.0" Publicize="true"/>
     </ItemGroup>
 
-    <!-- Define all DownloadInfo items -->
-    <!-- <ItemGroup>
-        <DownloadInfo Include="@(Reference->WithMetadataValue('DownloadInfo', 'Url')->Metadata('DownloadInfo'))" />
-    </ItemGroup> -->
-
     <!-- Target to download dependencies -->
     <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
         <!-- Define properties for URLs and Zip output paths -->
         <PropertyGroup>
-        <DownloadInfoUrls>@(DownloadInfo->'%(Url)')</DownloadInfoUrls>
-        <DownloadInfoZipOutputPaths>@(DownloadInfo->'%(ZipOutputPath)')</DownloadInfoZipOutputPaths>
+            <DownloadInfoUrls>@(DownloadInfo->'%(Url)')</DownloadInfoUrls>
+            <DownloadInfoZipOutputPaths>@(DownloadInfo->'%(ZipOutputPath)')</DownloadInfoZipOutputPaths>
 
-        <DownloadAppendedPaths>$(DownloadInfoUrls) $(DownloadInfoZipOutputPaths)</DownloadAppendedPaths>
+            <DownloadAppendedPaths>$(DownloadInfoUrls) $(DownloadInfoZipOutputPaths)</DownloadAppendedPaths>
         </PropertyGroup>
 
         <!-- Execute the Node.js script -->
