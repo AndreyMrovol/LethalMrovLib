@@ -67,10 +67,12 @@
         <PropertyGroup>
         <DownloadInfoUrls>@(DownloadInfo->'%(Url)')</DownloadInfoUrls>
         <DownloadInfoZipOutputPaths>@(DownloadInfo->'%(ZipOutputPath)')</DownloadInfoZipOutputPaths>
+
+        <DownloadAppendedPaths>$(DownloadInfoUrls) $(DownloadInfoZipOutputPaths)</DownloadAppendedPaths>
         </PropertyGroup>
 
         <!-- Execute the Node.js script -->
-        <Exec Command="node $(ProjectDir)../downloader.js $(DownloadInfoUrls) $(DownloadInfoZipOutputPaths)" />
+        <Exec Command="node $(ProjectDir)../downloader.js $(DownloadAppendedPaths)" />
     </Target>
 
     <Target Name="CopyLocalDependencies" AfterTargets="DownloadDependencies" Condition="'$(Configuration)'=='Release'">
