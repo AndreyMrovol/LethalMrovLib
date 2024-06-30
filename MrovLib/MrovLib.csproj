@@ -63,9 +63,14 @@
 
     <!-- Target to download dependencies -->
     <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
-        <!-- Concatenate all URLs into a single property -->    
+        <!-- Define properties for URLs and Zip output paths -->
+        <PropertyGroup>
+        <DownloadInfoUrls>@(DownloadInfo->'%(Url)')</DownloadInfoUrls>
+        <DownloadInfoZipOutputPaths>@(DownloadInfo->'%(ZipOutputPath)')</DownloadInfoZipOutputPaths>
+        </PropertyGroup>
+
         <!-- Execute the Node.js script -->
-        <Exec Command="node $(ProjectDir)../downloader.js @(DownloadInfo->'%(Url) %(ZipOutputPath)')" />
+        <Exec Command="node $(ProjectDir)../downloader.js $(DownloadInfoUrls) $(DownloadInfoZipOutputPaths)" />
     </Target>
 
     <Target Name="CopyLocalDependencies" AfterTargets="DownloadDependencies" Condition="'$(Configuration)'=='Release'">
