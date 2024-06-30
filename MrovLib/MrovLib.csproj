@@ -65,7 +65,7 @@
     <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
     <!-- Concatenate all URLs into a single property -->
         <PropertyGroup>
-            <DownloadInfoItems>@(DownloadInfo->'%(Url) %(ZipOutputPath)')</DownloadInfoItems>
+            <DownloadInfoItems>@(DownloadInfo->'%(Url)') @(DownloadInfo->'%(ZipOutputPath)')</DownloadInfoItems>
         </PropertyGroup>
     
         <!-- Execute the Node.js script -->
