@@ -63,8 +63,8 @@
 
     <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
         <!-- Execute the Node.js script for each DownloadInfo -->
-        <Exec Command="node $(ProjectDir)../downloader.js @(DownloadInfo->'%(Url)') @(DownloadInfo->'%(ZipOutputPath)')" />
-      </Target>
+        <Exec Command="node $(ProjectDir)../downloader.js @(DownloadInfo->'%(Url)') $(LibraryDirectory)" />
+    </Target>
 
     <Target Name="CopyLocalDependencies" AfterTargets="DownloadDependencies" Condition="'$(Configuration)'=='Release'">
         <!-- copy all files from ../assets/lib into ../lib -->
