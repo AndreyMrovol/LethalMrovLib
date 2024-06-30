@@ -27,9 +27,9 @@ jobs:
         run: gh release upload ${{ github.event.release.tag_name }} thunderstore-build/*/dist/*.zip nupkg-build/*/bin/Release/*.nupkg
 
   release-thunderstore:
-    needs: upload-release-artifacts
+    needs: build
     uses: ./.github/workflows/release-thunderstore.yml
 
   release-nuget:
-    needs: upload-release-artifacts
+    needs: build
     uses: ./.github/workflows/release-nuget.yml
