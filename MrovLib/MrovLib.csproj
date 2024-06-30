@@ -32,6 +32,7 @@
     <PropertyGroup>
         <GameDirectory>V:\Steam\steamapps\common\Lethal Company</GameDirectory>
         <LibraryDirectory>../lib</LibraryDirectory>
+        <TomlFile>$(ProjectDir)../assets/libs.toml</TomlFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -58,16 +59,8 @@
 
     <!-- Target to download dependencies -->
     <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
-        <!-- Define properties for URLs and Zip output paths -->
-        <PropertyGroup>
-            <DownloadInfoUrls>@(DownloadInfo->'%(Url)')</DownloadInfoUrls>
-            <DownloadInfoZipOutputPaths>@(DownloadInfo->'%(ZipOutputPath)')</DownloadInfoZipOutputPaths>
-
-            <DownloadAppendedPaths>$(DownloadInfoUrls) $(DownloadInfoZipOutputPaths)</DownloadAppendedPaths>
-        </PropertyGroup>
-
-        <!-- Execute the Node.js script -->
-        <Exec Command="node $(ProjectDir)../downloader.js $(DownloadAppendedPaths)" />
+        <MakeDir Directories="$(ProjectDir)$(LibraryDirectory)" Condition="!Exists('$(ProjectDir)$(LibraryDirectory)')" />
+        <Exec Command="node $(ProjectDir)../downloader.js $(TomlFile) $(LibraryDirectory)" />
     </Target>
 
     <Target Name="CopyLocalDependencies" AfterTargets="DownloadDependencies" Condition="'$(Configuration)'=='Release'">
@@ -92,15 +85,6 @@
         <Reference Include="LethalLevelLoader">
             <HintPath>$(LibraryDirectory)/LethalLevelLoader.dll</HintPath>
         </Reference>
-        <DownloadInfo Include="LethalLevelLoader">
-            <Url>https://thunderstore.io/package/download/IAmBatby/LethalLevelLoader/1.2.4/</Url>
-            <ZipOutputPath>$(LibraryDirectory)/lethallevelloader.zip</ZipOutputPath>
-        </DownloadInfo>
-
-        <DownloadInfo Include="WeatherTweaks">
-            <Url>https://thunderstore.io/package/download/mrov/WeatherTweaks/0.5.10/</Url>
-            <ZipOutputPath>$(LibraryDirectory)/weathertweaks.zip</ZipOutputPath>
-        </DownloadInfo>
     
         <Reference Include="OldLLLLib">
             <HintPath>$(LibraryDirectory)/OldLLLLib.dll</HintPath>

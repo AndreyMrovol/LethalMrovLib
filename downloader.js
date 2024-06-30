@@ -1,89 +1,98 @@
-const axios = require("axios").default; // Note the .default for CommonJS
-const fs = require("fs");
+const axios = require("axios");
+const fs = require("fs-extra");
 const path = require("path");
+const toml = require("toml");
 const extract = require("extract-zip");
 
-console.warn(process.argv);
-
-let argCount = process.argv.length;
-
-const urls = process.argv[2].split(";");
-const outputPaths = process.argv[3].split(";");
-
-if (urls.length !== outputPaths.length) {
-	console.error("The number of URLs must match the number of output paths.");
-	process.exit(1);
-}
-
-const downloadFile = async (url, outputPath) => {
-	const dir = path.dirname(outputPath);
-	if (!fs.existsSync(dir)) {
-		fs.mkdirSync(dir, { recursive: true });
-	}
-
-	if (fs.existsSync(outputPath)) {
-		console.log(`File ${outputPath} already exists. Skipping download.`);
-		return;
-	}
-
+async function downloadFile(url, outputPath) {
+	const writer = fs.createWriteStream(outputPath);
 	const response = await axios({
-		method: "get",
-		url: url,
-		responseType: "arraybuffer",
+		url,
+		method: "GET",
+		responseType: "stream",
 	});
 
-	fs.writeFileSync(outputPath, response.data);
+	response.data.pipe(writer);
 
-	console.log(`Downloaded ${url} to ${outputPath}`);
-};
+	return new Promise((resolve, reject) => {
+		writer.on("finish", resolve);
+		writer.on("error", reject);
+	});
+}
 
-const extractAndFilterDllFiles = async (zipPath, extractTo) => {
-	try {
-		const absExtractTo = path.resolve(extractTo); // Get absolute path for extraction
+async function extractDlls(zipPath, outputDir) {
+	const extractPath = path.join(outputDir, "temp");
+	await extract(zipPath, { dir: extractPath });
 
-		await extract(zipPath, {
-			dir: absExtractTo,
-			onEntry: (entry) => {
-				if (path.extname(entry.fileName) === ".dll") {
-					entry.fileName = path.basename(entry.fileName); // Only keep the filename
-					return entry;
-				} else {
-					entry.ignore = true; // Ignore non-.dll files
-				}
-			},
-		});
-
-		console.log(`Extracted and filtered .dll files from ${zipPath} to ${absExtractTo}`);
-
-		// Remove non-.dll files
-		const files = fs.readdirSync(absExtractTo);
+	async function moveDllFiles(dir) {
+		const files = await fs.readdir(dir);
 		for (const file of files) {
-			const filePath = path.join(absExtractTo, file);
-			if (path.extname(file) !== ".dll") {
-				fs.unlinkSync(filePath); // Delete non-.dll files
-				console.log(`Deleted ${filePath}`);
+			const filePath = path.join(dir, file);
+			const fileStat = await fs.stat(filePath);
+			if (fileStat.isFile() && path.extname(file) === ".dll") {
+				await fs.move(filePath, path.join(outputDir, path.basename(file)), {
+					overwrite: true,
+				});
+			} else if (fileStat.isDirectory()) {
+				await moveDllFiles(filePath);
 			}
 		}
-	} catch (err) {
-		console.error(`Error extracting ${zipPath}: ${err.message}`);
 	}
-};
 
-const downloadAndExtractAllFiles = async () => {
-	console.warn(urls);
+	await moveDllFiles(extractPath);
 
-	for (let i = 0; i < urls.length; i++) {
+	// Clean up temp directory
+	await fs.remove(extractPath);
+}
+
+async function isFileDownloaded(url, outputPath) {
+	if (!fs.existsSync(outputPath)) {
+		return false;
+	}
+
+	const downloadedFileStats = fs.statSync(outputPath);
+	const response = await axios.head(url);
+	const remoteFileSize = parseInt(response.headers["content-length"], 10);
+
+	return downloadedFileStats.size === remoteFileSize;
+}
+
+async function main() {
+	const [tomlFilePath, libraryDir] = process.argv.slice(2);
+
+	if (!tomlFilePath || !libraryDir) {
+		console.error(
+			"Usage: node downloader.js <path to libraries.toml> <library directory>"
+		);
+		process.exit(1);
+	}
+
+	const absoluteTomlFilePath = path.resolve(tomlFilePath);
+	const absoluteLibraryDir = path.resolve(libraryDir);
+
+	const tomlContent = fs.readFileSync(absoluteTomlFilePath, "utf-8");
+	const config = toml.parse(tomlContent);
+
+	for (const lib of config.library) {
+		const zipPath = path.join(absoluteLibraryDir, `${lib.name}.zip`);
 		try {
-			const outputPath = outputPaths[i];
-			await downloadFile(urls[i], outputPath);
+			const isDownloaded = await isFileDownloaded(lib.url, zipPath);
 
-			if (outputPath.endsWith(".zip")) {
-				await extractAndFilterDllFiles(outputPath, path.dirname(outputPath));
+			if (!isDownloaded) {
+				console.log(`Downloading ${lib.url}...`);
+				await downloadFile(lib.url, zipPath);
+				console.log(`Downloaded ${lib.name}`);
+			} else {
+				console.log(`${lib.name} is already downloaded.`);
 			}
-		} catch (err) {
-			console.error(`Error processing ${urls[i]}: ${err.message}`);
+
+			console.log(`Extracting ${zipPath}...`);
+			await extractDlls(zipPath, absoluteLibraryDir);
+			console.log(`Extracted ${lib.name}`);
+		} catch (error) {
+			console.error(`Failed to process ${lib.name}:`, error);
 		}
 	}
-};
+}
 
-downloadAndExtractAllFiles();
+main();

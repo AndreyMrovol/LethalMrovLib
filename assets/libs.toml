@@ -1,0 +1,9 @@
+[libraries]
+
+[[library]]
+name = "LethalLevelLoader"
+url = "https://thunderstore.io/package/download/IAmBatby/LethalLevelLoader/1.2.4/"
+
+[[library]]
+name = "WeatherTweaks"
+url = "https://thunderstore.io/package/download/mrov/WeatherTweaks/0.5.10/"
