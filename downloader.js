@@ -4,9 +4,10 @@ const path = require("path");
 const extract = require("extract-zip");
 
 console.warn(process.argv);
+let argCount = process.argv.length - 1;
 
-const urls = process.argv[2].split(";");
-const outputPaths = process.argv[3].split(";");
+const urls = process.argv[argCount - 1].split(";");
+const outputPaths = process.argv[argCount].split(";");
 
 if (urls.length !== outputPaths.length) {
 	console.error("The number of URLs must match the number of output paths.");
