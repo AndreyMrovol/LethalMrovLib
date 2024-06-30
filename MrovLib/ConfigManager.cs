@@ -2,7 +2,7 @@ using BepInEx.Configuration;
 
 namespace MrovLib
 {
-	public static class ConfigManager
+	internal static class ConfigManager
 	{
 		public static ConfigEntry<bool> Debug { get; private set; }
 
