@@ -56,6 +56,26 @@
         <PackageReference Include="LethalCompany.GameLibs.Steam" Version="50.0.1-ngd.0" Publicize="true"/>
     </ItemGroup>
 
+    <!-- Define all DownloadInfo items -->
+    <ItemGroup>
+        <Reference Include="@(DownloadReference->WithMetadataValue('DownloadInfo', 'Url')->Metadata('DownloadInfo'))" />
+    </ItemGroup>
+
+    <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
+        <!-- Execute the Node.js script for each DownloadInfo -->
+        <Exec Command="node $(ProjectDir)../downloader.js @(DownloadInfo->'%(Url)') @(DownloadInfo->'%(ZipOutputPath)')" />
+      </Target>
+
+    <Target Name="CopyLocalDependencies" AfterTargets="DownloadDependencies" Condition="'$(Configuration)'=='Release'">
+        <!-- copy all files from ../assets/lib into ../lib -->
+
+        <ItemGroup>
+            <LibraryFiles Include="$(ProjectDir)../assets/lib/*" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(LibraryFiles)" DestinationFolder="$(LibraryDirectory)" />
+    </Target>
+
     <ItemGroup>
         <!-- this is not really required -->
         <!-- <PackageReference Include="TeamBMX.LobbyCompatibility" Version="1.0.1" /> -->
@@ -64,9 +84,19 @@
 
         <!-- <Reference Include="MMHOOK_Assembly-CSharp"><HintPath>../lib/MMHOOK_Assembly-CSharp.dll</HintPath></Reference> -->
 
+        <!-- References with DownloadDetails -->
         <Reference Include="LethalLevelLoader">
             <HintPath>$(LibraryDirectory)/LethalLevelLoader.dll</HintPath>
         </Reference>
+        <DownloadInfo Include="LethalLevelLoader">
+            <Url>https://thunderstore.io/package/download/IAmBatby/LethalLevelLoader/1.2.4/</Url>
+            <ZipOutputPath>$(LibraryDirectory)/lethallevelloader.zip</ZipOutputPath>
+        </DownloadInfo>
+
+        <DownloadInfo Include="WeatherTweaks">
+            <Url>https://thunderstore.io/package/download/mrov/WeatherTweaks/0.5.10/</Url>
+            <ZipOutputPath>$(LibraryDirectory)/weathertweaks.zip</ZipOutputPath>
+        </DownloadInfo>
     
         <Reference Include="OldLLLLib">
             <HintPath>$(LibraryDirectory)/OldLLLLib.dll</HintPath>
