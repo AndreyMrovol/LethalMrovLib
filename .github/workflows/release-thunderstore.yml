@@ -1,6 +1,10 @@
 name: Release on Thunderstore
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      thunderstore-token:
+        required: true
 
 jobs:
   thunderstore:
@@ -30,6 +34,6 @@ jobs:
 
       - name: Publish to Thunderstore
         env:
-          TCLI_AUTH_TOKEN: ${{ secrets.THUNDERSTORE_API_KEY }}
+          TCLI_AUTH_TOKEN: ${{ secrets.thunderstore-token }}
         run: |
           dotnet build -target:PublishThunderstore

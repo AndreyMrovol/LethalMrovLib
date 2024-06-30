@@ -1,6 +1,10 @@
 name: Release on Nuget
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      nuget-token:
+        required: true
 
 jobs:
   nuget:
@@ -22,4 +26,4 @@ jobs:
 
       - name: Publish to NuGet.org
         run: |
-          dotnet nuget push ./*/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          dotnet nuget push ./*/bin/Release/*.nupkg --api-key ${{ secrets.nuget-token }} --source https://api.nuget.org/v3/index.json

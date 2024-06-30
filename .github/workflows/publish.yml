@@ -29,7 +29,11 @@ jobs:
   release-thunderstore:
     needs: build
     uses: ./.github/workflows/release-thunderstore.yml
+    secrets:
+      thunderstore-token: ${{ secrets.THUNDERSTORE_API_KEY }}
 
   release-nuget:
     needs: build
     uses: ./.github/workflows/release-nuget.yml
+    secrets:
+      nuget-token: ${{ secrets.NUGET_API_KEY }}
