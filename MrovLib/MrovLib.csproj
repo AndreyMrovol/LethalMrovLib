@@ -57,9 +57,9 @@
     </ItemGroup>
 
     <!-- Define all DownloadInfo items -->
-    <ItemGroup>
+    <!-- <ItemGroup>
         <DownloadInfo Include="@(Reference->WithMetadataValue('DownloadInfo', 'Url')->Metadata('DownloadInfo'))" />
-    </ItemGroup>
+    </ItemGroup> -->
 
     <!-- Target to download dependencies -->
     <Target Name="DownloadDependencies" Condition="'$(Configuration)'=='Release'" BeforeTargets="BeforeBuild">
