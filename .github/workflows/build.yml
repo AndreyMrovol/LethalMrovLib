@@ -57,12 +57,6 @@ jobs:
       - name: Set ZIP_PATH environment variable
         run: echo "ZIP_PATH=./${{ env.MOD_NAME }}/dist/curseforge.zip" >> $GITHUB_ENV
 
-      - name: Upload CurseForge artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: curseforge-build
-          path: ${{ env.ZIP_PATH }}
-
       - name: Upload Thunderstore artifact
         uses: actions/upload-artifact@v4
         with:
