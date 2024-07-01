@@ -1,5 +1,5 @@
 // https://github.com/IAmBatby/LethalLevelLoader/blob/51f9af254c38f926f808f1714bb6dc52bb5f66dc/LethalLevelLoader/General/EventPatches.cs#L287-L307
-namespace Mrovlib.Events
+namespace MrovLib.Events
 {
 	public class CustomEvent<T>
 	{
