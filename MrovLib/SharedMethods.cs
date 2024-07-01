@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MrovLib.Compatibility;
 using UnityEngine;
 
-namespace MrovLib
+namespace MrovLib.API
 {
+	[Obsolete]
 	public class SharedMethods
 	{
 		public static string GetWeather(SelectableLevel level)
