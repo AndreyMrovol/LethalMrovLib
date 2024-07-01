@@ -3,19 +3,13 @@ using BepInEx.Logging;
 
 namespace MrovLib
 {
-	public class Logger
+	public class Logger(string name, ConfigEntry<bool> enabled)
 	{
-		private static ManualLogSource LogSource;
-		private static ConfigEntry<bool> ConfigEntry;
-
-		public Logger(string name, ConfigEntry<bool> enabled)
-		{
-			LogSource = BepInEx.Logging.Logger.CreateLogSource(name);
-			ConfigEntry = enabled;
-		}
+		private ManualLogSource LogSource = BepInEx.Logging.Logger.CreateLogSource(name);
+		private ConfigEntry<bool> ConfigEntry = enabled;
 
 		// this is overengineered to fuck
-		public static void Log(LogLevel level, object data)
+		public void Log(LogLevel level, object data)
 		{
 			if (ConfigEntry.Value)
 			{
