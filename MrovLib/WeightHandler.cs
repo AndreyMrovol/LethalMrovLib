@@ -132,7 +132,7 @@ namespace MrovLib
 		public int RandomIndex()
 		{
 			Random random = new();
-			int randomIndex = random.Next(0, Count);
+			int randomIndex = random.Next(0, Sum);
 			return randomIndex;
 		}
 
