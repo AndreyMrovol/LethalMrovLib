@@ -8,7 +8,7 @@ repository = "https://thunderstore.io"
 namespace = "mrov"
 name = "MrovLib"
 description = "Common methods for my mods."
-websiteUrl = ""
+websiteUrl = "https://github.com/AndreyMrovol/LethalMrovLib/"
 containsNsfwContent = false
 
 [package.dependencies]
