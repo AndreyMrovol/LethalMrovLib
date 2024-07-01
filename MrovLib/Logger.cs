@@ -6,30 +6,12 @@ namespace MrovLib
 	public class Logger
 	{
 		private static ManualLogSource LogSource;
-		private static bool Enabled
-		{
-			get => ConfigEntry.Value;
-			set => ConfigEntry.Value = value;
-		}
 		private static ConfigEntry<bool> ConfigEntry;
-
-		// public Logger(string name, ConfigEntry<bool> enabled)
-		// {
-		//   LogSource = BepInEx.Logging.Logger.CreateLogSource(name);
-		//   Enabled = enabled;
-		// }
-		// constructor
 
 		public Logger(string name, ConfigEntry<bool> enabled)
 		{
 			LogSource = BepInEx.Logging.Logger.CreateLogSource(name);
 			ConfigEntry = enabled;
-		}
-
-		public Logger(string name, bool enabled)
-		{
-			LogSource = BepInEx.Logging.Logger.CreateLogSource(name);
-			Enabled = enabled;
 		}
 
 		// this is overengineered to fuck
