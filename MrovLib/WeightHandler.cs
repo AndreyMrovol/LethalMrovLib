@@ -40,6 +40,32 @@ namespace MrovLib
 			}
 		}
 
+		public void Set(T key, int value)
+		{
+			// make sure the key is not null
+			if (key == null)
+			{
+				throw new ArgumentNullException(nameof(key));
+			}
+
+			// make sure the value is not negative
+			if (Comparer<int>.Default.Compare(value, default(int)) < 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(value), "Value cannot be negative");
+			}
+
+			// if the key is already added, set the value
+			if (dictionary.TryGetValue(key, out int existingValue))
+			{
+				dictionary[key] = value;
+			}
+			// if the key is not added, add it
+			else
+			{
+				dictionary.Add(key, value);
+			}
+		}
+
 		public void Remove(T key)
 		{
 			// make sure the key is not null
