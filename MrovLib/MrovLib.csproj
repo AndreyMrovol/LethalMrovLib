@@ -33,7 +33,8 @@
 
     <PropertyGroup>
         <GameDirectory>V:\Steam\steamapps\common\Lethal Company</GameDirectory>
-        <LibraryDirectory>V:\LC-ModLibraries</LibraryDirectory>
+        <LibraryDirectory>../lib</LibraryDirectory>
+        <DebugLibraryDirectory>V:\LC-ModLibraries</DebugLibraryDirectory>
         <TomlFile>$(ProjectDir)../assets/libs.toml</TomlFile>
     </PropertyGroup>
 
@@ -149,6 +150,6 @@
 
     <Target Name="CopyToDebugProfile" AfterTargets="NetcodePatch" Condition="'$(Configuration)' == 'Debug'">
         <Message Importance="high" Text="Copying To LibraryDir" />
-        <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(LibraryDirectory)" />
+        <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(DebugLibraryDirectory)" />
     </Target>
 </Project>
