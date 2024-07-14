@@ -22,7 +22,7 @@ namespace MrovLib
 			logger = Logger;
 			harmony.PatchAll();
 
-			ConfigManager.Init(Config);
+			LocalConfigManager.Init(Config);
 
 			LLL = new("imabatby.lethallevelloader", "1.2.0.0");
 			LLLOldPlugin = new("OldLLLLib");
@@ -36,10 +36,27 @@ namespace MrovLib
 
 		internal static void LogDebug(string log)
 		{
-			if (ConfigManager.Debug.Value)
+			if (LocalConfigManager.Debug.Value)
 			{
 				logger.LogDebug(log);
 			}
+		}
+	}
+
+	internal class LocalConfigManager : MrovLib.ConfigManager
+	{
+		public static ConfigEntry<bool> Debug { get; private set; }
+
+		private LocalConfigManager(ConfigFile config)
+			: base(config)
+		{
+			Debug = configFile.Bind("General", "Debug", false, "Enable debug logging");
+
+		}
+
+		public static new void Init(ConfigFile config)
+		{
+			Instance = new LocalConfigManager(config);
 		}
 	}
 }

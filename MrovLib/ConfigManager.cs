@@ -2,13 +2,19 @@ using BepInEx.Configuration;
 
 namespace MrovLib
 {
-	internal static class ConfigManager
+	public class ConfigManager
 	{
-		public static ConfigEntry<bool> Debug { get; private set; }
+		public static ConfigManager Instance { get; internal set; }
+		public static ConfigFile configFile;
 
-		public static void Init(ConfigFile config)
+		public virtual void Init(ConfigFile config)
 		{
-			Debug = config.Bind("General", "Debug", false);
+			Instance = new ConfigManager(config);
+		}
+
+		public ConfigManager(ConfigFile config)
+		{
+			configFile = config;
 		}
 	}
 }
