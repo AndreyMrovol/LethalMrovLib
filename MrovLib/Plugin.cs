@@ -13,6 +13,8 @@ namespace MrovLib
 		internal static ManualLogSource logger;
 		internal static Harmony harmony = new(PluginInfo.PLUGIN_GUID);
 
+		internal static ConfigEntry<bool> DebugLogging;
+
 		public static LLL LLL;
 		public static LLLOldPlugin LLLOldPlugin;
 		public static WeatherTweaks WeatherTweaks;
@@ -52,6 +54,7 @@ namespace MrovLib
 		{
 			Debug = configFile.Bind("General", "Debug", false, "Enable debug logging");
 
+			Plugin.DebugLogging = Debug;
 		}
 
 		public static new void Init(ConfigFile config)

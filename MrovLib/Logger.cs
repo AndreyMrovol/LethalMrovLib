@@ -3,10 +3,10 @@ using BepInEx.Logging;
 
 namespace MrovLib
 {
-	public class Logger(string name, ConfigEntry<bool> enabled)
+	public class Logger(string name, ConfigEntry<bool> enabled = null)
 	{
 		private ManualLogSource LogSource = BepInEx.Logging.Logger.CreateLogSource(name);
-		private ConfigEntry<bool> ConfigEntry = enabled;
+		private ConfigEntry<bool> ConfigEntry = enabled ?? Plugin.DebugLogging;
 
 		// this is overengineered to fuck
 		public void Log(LogLevel level, object data)
