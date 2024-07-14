@@ -33,7 +33,7 @@ namespace MrovLib.API
 
 		public static string GetNumberlessPlanetName(SelectableLevel level)
 		{
-			return new string(level.PlanetName.SkipWhile(c => !char.IsLetter(c)).ToArray());
+			return StringResolver.GetNumberlessName(level);
 		}
 
 		public static List<GrabbableObject> GetShipObjects()
