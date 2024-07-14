@@ -34,6 +34,8 @@ namespace MrovLib
 
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+
+			EventManager.TerminalStart.AddListener(StringResolver.Reset);
 		}
 
 		internal static void LogDebug(string log)
