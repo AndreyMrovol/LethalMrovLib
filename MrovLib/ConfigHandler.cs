@@ -9,11 +9,5 @@ namespace MrovLib
 		public virtual CT DefaultValue { get; set; }
 
 		public abstract T Value { get; }
-
-		public ConfigHandler(string configCategory, string configTitle, CT defaultValue, ConfigDescription configDescription = null)
-		{
-			DefaultValue = defaultValue;
-			ConfigEntry = ConfigManager.configFile.Bind(configCategory, configTitle, DefaultValue, configDescription);
-		}
 	}
 }
