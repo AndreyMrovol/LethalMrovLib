@@ -102,7 +102,7 @@ namespace MrovLib
 
 				if (count == 0)
 				{
-					throw new InvalidOperationException("Dictionary is empty!");
+					throw new InvalidOperationException("Dictionary is empty - nothing to pick from!");
 				}
 
 				return count;
@@ -122,6 +122,12 @@ namespace MrovLib
 				// make sure the sum is not 0
 				if (sum <= 0)
 				{
+					// if there's only one item, make sure it's picked; otherwise throw
+					if (Count == 1)
+					{
+						return 1;
+					}
+
 					throw new InvalidOperationException("Sum cannot be 0 or negative");
 				}
 
