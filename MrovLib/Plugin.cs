@@ -11,6 +11,7 @@ namespace MrovLib
 	public class Plugin : BaseUnityPlugin
 	{
 		internal static ManualLogSource logger;
+		internal static Logger DebugLogger;
 		internal static Harmony harmony = new(PluginInfo.PLUGIN_GUID);
 
 		internal static ConfigEntry<bool> DebugLogging;
@@ -26,6 +27,8 @@ namespace MrovLib
 
 			LocalConfigManager.Init(Config);
 
+			DebugLogger = new("MrovLib", DebugLogging);
+
 			LLL = new("imabatby.lethallevelloader", "1.2.0.0");
 			LLLOldPlugin = new("OldLLLLib");
 			// LLLOldPlugin.IsTheOldLLLActive = LLLOldPlugin.IsModPresent;
@@ -35,15 +38,14 @@ namespace MrovLib
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
+			DebugLogger.LogWarning($"Debug logs enabled!");
+
 			EventManager.TerminalStart.AddListener(StringResolver.Reset);
 		}
 
 		internal static void LogDebug(string log)
 		{
-			if (LocalConfigManager.Debug.Value)
-			{
-				logger.LogDebug(log);
-			}
+			DebugLogger.LogDebug(log);
 		}
 	}
 

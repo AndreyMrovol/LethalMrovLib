@@ -18,14 +18,14 @@ namespace MrovLib.Compatibility
 			ModVersion = version;
 			_enabled = null;
 
-			Plugin.logger.LogWarning($"CompatibilityBase Constructor called, GUID: {ModGUID}, Version: {ModVersion}");
+			Plugin.DebugLogger.LogWarning($"CompatibilityBase Constructor called, GUID: {ModGUID}, Version: {ModVersion}");
 		}
 
 		public bool IsModPresent
 		{
 			get
 			{
-				Plugin.LogDebug($"IsModPresent called, GUID: {ModGUID}, Enabled: {_enabled}, Version: {ModVersion}");
+				// Plugin.LogDebug($"IsModPresent called, GUID: {ModGUID}, Enabled: {_enabled}, Version: {ModVersion}");
 
 				if (_enabled == null)
 				{
@@ -38,7 +38,7 @@ namespace MrovLib.Compatibility
 
 					if (Chainloader.PluginInfos.TryGetValue(ModGUID, out BepInEx.PluginInfo pluginInfo))
 					{
-						Plugin.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
+						// Plugin.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
 						// make sure the biggest version (X.0.0.0) matches
 
 						if (pluginInfo.Metadata.Version.Major != new Version(ModVersion).Major)
@@ -52,7 +52,7 @@ namespace MrovLib.Compatibility
 					}
 				}
 
-				Plugin.LogDebug($"Returning {_enabled} ({(bool)_enabled})");
+				// Plugin.LogDebug($"Returning {_enabled} ({(bool)_enabled})");
 				return (bool)_enabled;
 			}
 		}

@@ -70,6 +70,7 @@ namespace MrovLib
 
 		public static SelectableLevel[] ResolveStringToLevels(string str)
 		{
+			Plugin.LogDebug($"Resolving {str} into SelectableLevels");
 			string[] levelNames = ConvertStringToArray(str);
 
 			List<SelectableLevel> output = [];
@@ -96,9 +97,7 @@ namespace MrovLib
 					case "vanilla":
 						SelectableLevel[] resolved = ResolveStringPlaceholderLevels(level);
 
-						Plugin.logger.LogDebug(
-							$"String {level} resolved to selectable levels: {string.Join(',', resolved.Select(l => l.PlanetName))}"
-						);
+						Plugin.LogDebug($"String {level} resolved to selectable levels: {string.Join(',', resolved.Select(l => l.PlanetName))}");
 
 						output.AddRange(resolved);
 						continue;
@@ -110,7 +109,7 @@ namespace MrovLib
 							continue;
 						}
 
-						Plugin.logger.LogDebug($"String {level} resolved to selectable level: {selectableLevel}");
+						Plugin.LogDebug($"String {level} resolved to selectable level: {selectableLevel}");
 
 						if (output.Contains(selectableLevel))
 						{

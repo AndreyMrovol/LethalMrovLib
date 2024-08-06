@@ -151,6 +151,7 @@ namespace MrovLib
 				sum += pair.Value;
 				if (roll <= sum)
 				{
+					Plugin.DebugLogger.LogWarning($"Picked {pair.Key} with a roll of {roll} out of {Sum}");
 					return pair.Key;
 				}
 			}
