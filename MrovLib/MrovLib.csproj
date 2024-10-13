@@ -86,10 +86,12 @@
 
         <!-- <Reference Include="MMHOOK_Assembly-CSharp"><HintPath>../lib/MMHOOK_Assembly-CSharp.dll</HintPath></Reference> -->
 
+        <PackageReference Include="IAmBatby.LethalLevelLoader" Version="1.3.10" />
+
         <!-- References with DownloadDetails -->
-        <Reference Include="LethalLevelLoader">
+        <!-- <Reference Include="LethalLevelLoader">
             <HintPath>$(LibraryDirectory)/LethalLevelLoader.dll</HintPath>
-        </Reference>
+        </Reference> -->
     
         <Reference Include="OldLLLLib">
             <HintPath>$(LibraryDirectory)/OldLLLLib.dll</HintPath>

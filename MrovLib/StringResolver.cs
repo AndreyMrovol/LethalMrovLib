@@ -15,6 +15,9 @@ namespace MrovLib
 	public class StringResolver
 	{
 		private static Dictionary<string, SelectableLevel> _levelsDictionary = null;
+
+		private static ResolverCache<SelectableLevel[]> stringToLevelsCache = new();
+
 		public static Dictionary<string, SelectableLevel> StringToLevel
 		{
 			get
@@ -71,6 +74,12 @@ namespace MrovLib
 		public static SelectableLevel[] ResolveStringToLevels(string str)
 		{
 			Plugin.LogDebug($"Resolving {str} into SelectableLevels");
+
+			if (stringToLevelsCache.Contains(str))
+			{
+				return stringToLevelsCache.Get(str);
+			}
+
 			string[] levelNames = ConvertStringToArray(str);
 
 			List<SelectableLevel> output = [];
@@ -121,7 +130,9 @@ namespace MrovLib
 				}
 			}
 
-			return output.Where(listItem => listItem != null).ToArray();
+			SelectableLevel[] outputLevels = output.Where(listItem => listItem != null).ToArray();
+			stringToLevelsCache.Add(str, outputLevels);
+			return outputLevels;
 		}
 
 		public static PlaceholderStringType GetPlaceholderType(string input)
@@ -168,6 +179,7 @@ namespace MrovLib
 		public static void Reset(Terminal terminal)
 		{
 			StringToLevel = null;
+			stringToLevelsCache.Reset();
 		}
 	}
 }
