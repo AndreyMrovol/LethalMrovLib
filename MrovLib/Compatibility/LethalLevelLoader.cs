@@ -28,7 +28,7 @@ namespace MrovLib.Compatibility
 		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 		public static List<SelectableLevel> GetLevels()
 		{
-			return LethalLevelLoader.PatchedContent.SeletectableLevels;
+			return LethalLevelLoader.PatchedContent.SelectableLevels;
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
@@ -56,6 +56,23 @@ namespace MrovLib.Compatibility
 		public static MoonsCataloguePage GetMoonsCataloguePage()
 		{
 			return LethalLevelLoader.TerminalManager.currentMoonsCataloguePage;
+		}
+
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		public static List<SelectableLevel> GetLevelsWithTag(string tag)
+		{
+			List<ExtendedContent> content = ContentTagManager.GetAllExtendedContentsByTag(tag);
+			List<SelectableLevel> levels = [];
+
+			foreach (ExtendedContent contentPiece in content)
+			{
+				if (contentPiece is ExtendedLevel extendedLevel)
+				{
+					levels.Add(extendedLevel.SelectableLevel);
+				}
+			}
+
+			return levels;
 		}
 	}
 }

@@ -115,6 +115,16 @@ namespace MrovLib
 			return null;
 		}
 
+		public static List<SelectableLevel> GetLevelsFromLLLTag(string tag)
+		{
+			if (Plugin.LLL.IsModPresent)
+			{
+				return LLL.GetLevelsWithTag(tag);
+			}
+
+			return [];
+		}
+
 		// public static int GetPrice(int beforeDiscountPrice)
 		// {
 		//     Plugin.logger.LogWarning($"price: {beforeDiscountPrice}");

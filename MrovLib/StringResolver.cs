@@ -91,13 +91,22 @@ namespace MrovLib
 
 			foreach (string level in levelNames)
 			{
-				// if (level.ToLowerInvariant() == "all" || level.ToLowerInvariant() == "modded" || level.ToLowerInvariant() == "vanilla")
-				// {
-				//   SelectableLevel[] resolved = ResolveStringPlaceholderLevels(level);
+				if (level.StartsWith("$"))
+				{
+					Plugin.LogDebug($"String {level} is a LLL ContentTag");
 
-				//   output.AddRange(resolved);
-				//   continue;
-				// }
+					if (!Plugin.LLL.IsModPresent)
+					{
+						Plugin.LogDebug($"LLL is not present, skipping");
+						continue;
+					}
+
+					List<SelectableLevel> resolved = Compatibility.LLL.GetLevelsWithTag(level.Substring(1));
+
+					Plugin.LogDebug($"String {level} resolved to selectable levels: {string.Join(',', resolved.Select(l => l.PlanetName))}");
+					output.AddRange(resolved);
+					continue;
+				}
 
 				switch (level.ToLowerInvariant())
 				{
@@ -178,6 +187,8 @@ namespace MrovLib
 
 		public static void Reset(Terminal terminal)
 		{
+			Plugin.LogDebug("Resetting StringResolver");
+
 			StringToLevel = null;
 			stringToLevelsCache.Reset();
 		}
