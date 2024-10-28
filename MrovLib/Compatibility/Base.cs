@@ -18,7 +18,7 @@ namespace MrovLib.Compatibility
 			ModVersion = version;
 			_enabled = null;
 
-			Plugin.DebugLogger.LogWarning($"CompatibilityBase Constructor called, GUID: {ModGUID}, Version: {ModVersion}");
+			Plugin.DebugLogger.LogInfo($"CompatibilityBase Constructor called, GUID: {ModGUID}, Version: {ModVersion}");
 		}
 
 		public bool IsModPresent

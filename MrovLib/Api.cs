@@ -42,7 +42,7 @@ namespace MrovLib
 
 		public static List<SelectableLevel> GetGameLevels()
 		{
-			Plugin.DebugLogger.LogWarning("GetGameLevels called");
+			Plugin.DebugLogger.LogDebug("GetGameLevels called");
 
 			if (Plugin.LLL.IsModPresent)
 			{

@@ -16,7 +16,7 @@ namespace MrovLib
 			{
 				if (planetNames.Contains(level.PlanetName))
 				{
-					Plugin.logger.LogFatal($"Duplicate planet name: {level.PlanetName}");
+					Plugin.logger.LogWarning($"Duplicate planet name: {level.PlanetName}");
 					duplicates.Add(level.PlanetName);
 				}
 				planetNames.Add(level.PlanetName, true);

@@ -11,7 +11,7 @@ namespace MrovLib.Patches
 
 			if (PlanetChecker.ContainsRepeats)
 			{
-				Plugin.logger.LogError("Duplicate planet names detected - this will cause issues with the game!");
+				Plugin.logger.LogFatal("Duplicate planet names detected - this will cause issues with the game!");
 			}
 		}
 	}
