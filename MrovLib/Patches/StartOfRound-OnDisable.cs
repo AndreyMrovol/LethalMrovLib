@@ -3,7 +3,7 @@ using HarmonyLib;
 namespace MrovLib.Patches
 {
 	[HarmonyPatch(typeof(StartOfRound), "OnDisable")]
-	internal partial class StartOfRoundPatch
+	internal class StartOfRoundPatch
 	{
 		private static void Postfix(StartOfRound __instance)
 		{
