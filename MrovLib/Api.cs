@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MrovLib.Compatibility;
 using UnityEngine;
 
@@ -32,6 +33,12 @@ namespace MrovLib
 		public static string GetNumberlessPlanetName(SelectableLevel level)
 		{
 			return new string(level.PlanetName.SkipWhile(c => !char.IsLetter(c)).ToArray());
+		}
+
+		public static string GetAlphanumericName(SelectableLevel level)
+		{
+			Regex regex = new(@"^[0-9]+|[-_/\\\ ]");
+			return new string(regex.Replace(level.PlanetName, ""));
 		}
 
 		public static List<GrabbableObject> GetShipObjects()
@@ -123,6 +130,11 @@ namespace MrovLib
 			}
 
 			return [];
+		}
+
+		public static LevelWeatherType GetLevelWeather(SelectableLevel level)
+		{
+			return level.currentWeather;
 		}
 
 		// public static int GetPrice(int beforeDiscountPrice)
