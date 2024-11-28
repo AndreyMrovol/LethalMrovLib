@@ -40,7 +40,7 @@ namespace MrovLib
 
 			DebugLogger.LogWarning($"Debug logs enabled!");
 
-			EventManager.TerminalStart.AddListener(StringResolver.Reset);
+			EventManager.LobbyDisabled.AddListener(StringResolver.Reset);
 		}
 
 		internal static void LogDebug(string log)

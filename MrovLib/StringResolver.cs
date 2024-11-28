@@ -185,9 +185,9 @@ namespace MrovLib
 			return levels.ToArray();
 		}
 
-		public static void Reset(Terminal terminal)
+		public static void Reset(StartOfRound startOfRound)
 		{
-			Plugin.LogDebug("Resetting StringResolver");
+			Plugin.LogDebug("StringResolver.Reset called");
 
 			StringToLevel = null;
 			stringToLevelsCache.Reset();
