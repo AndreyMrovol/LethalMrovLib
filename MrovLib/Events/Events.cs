@@ -5,7 +5,7 @@ namespace MrovLib.Events
 	{
 		public delegate void ParameterEvent(T param);
 		private event ParameterEvent onParameterEvent;
-		public bool HasListeners => (Listeners != 0);
+		public bool HasListeners => Listeners != 0;
 		public int Listeners { get; internal set; }
 
 		public void Invoke(T param)
@@ -30,7 +30,7 @@ namespace MrovLib.Events
 	{
 		public delegate void Event();
 		private event Event onEvent;
-		public bool HasListeners => (Listeners != 0);
+		public bool HasListeners => Listeners != 0;
 		public int Listeners { get; internal set; }
 
 		public void Invoke()
