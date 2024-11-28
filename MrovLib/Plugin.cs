@@ -8,6 +8,7 @@ namespace MrovLib
 {
 	[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 	[BepInDependency("OldLLLLib", BepInDependency.DependencyFlags.HardDependency)]
+	[BepInDependency("imabatby.lethallevelloader", BepInDependency.DependencyFlags.SoftDependency)]
 	public class Plugin : BaseUnityPlugin
 	{
 		internal static ManualLogSource logger;
@@ -41,6 +42,7 @@ namespace MrovLib
 			DebugLogger.LogWarning($"Debug logs enabled!");
 
 			EventManager.LobbyDisabled.AddListener(StringResolver.Reset);
+			EventManager.LobbyDisabled.AddListener(LevelHelper.Reset);
 		}
 
 		internal static void LogDebug(string log)
