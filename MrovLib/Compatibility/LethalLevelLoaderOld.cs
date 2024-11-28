@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,7 @@ using OldLLLLib;
 
 namespace MrovLib.Compatibility
 {
+	[Obsolete]
 	public class LLLOldPlugin(string guid, string version = null) : CompatibilityBase(guid, version)
 	{
 		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
