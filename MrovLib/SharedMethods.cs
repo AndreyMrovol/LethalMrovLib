@@ -1,52 +1,140 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MrovLib.Compatibility;
 using UnityEngine;
 
-namespace MrovLib.API
+namespace MrovLib
 {
-	[Obsolete]
 	public class SharedMethods
 	{
 		public static string GetWeather(SelectableLevel level)
 		{
-			return MrovLib.SharedMethods.GetWeather(level);
+			string weather;
+
+			if (Plugin.WeatherTweaks.IsModPresent)
+			{
+				weather = WeatherTweaks.CurrentWeather(level);
+			}
+			else if (Plugin.LLL.IsModPresent)
+			{
+				weather = LLL.GetWeather(level);
+			}
+			else
+			{
+				weather = level.currentWeather.ToString();
+			}
+
+			Plugin.LogDebug($"Weather: {weather}");
+
+			return weather == "None" ? "" : weather;
 		}
 
 		public static string GetNumberlessPlanetName(SelectableLevel level)
 		{
-			return MrovLib.SharedMethods.GetNumberlessPlanetName(level);
+			return new string(level.PlanetName.SkipWhile(c => !char.IsLetter(c)).ToArray());
+		}
+
+		public static string GetAlphanumericName(SelectableLevel level)
+		{
+			Regex regex = new(@"^[0-9]+|[-_/\\\ ]");
+			return new string(regex.Replace(level.PlanetName, ""));
 		}
 
 		public static List<GrabbableObject> GetShipObjects()
 		{
-			return MrovLib.SharedMethods.GetShipObjects();
+			GameObject ship = GameObject.Find("/Environment/HangarShip");
+			return ship.GetComponentsInChildren<GrabbableObject>().ToList();
 		}
 
 		public static List<SelectableLevel> GetGameLevels()
 		{
-			return MrovLib.SharedMethods.GetGameLevels();
+			Plugin.DebugLogger.LogDebug("GetGameLevels called");
+
+			if (Plugin.LLL.IsModPresent)
+			{
+				Plugin.DebugLogger.LogDebug($"LLL present");
+				return LLL.GetLevels();
+			}
+			else if (LLLOldPlugin.IsTheOldLLLActive())
+			{
+				Plugin.DebugLogger.LogDebug($"LLLOld present");
+				return LLLOldPlugin.GetSelectableLevels();
+			}
+			else
+			{
+				Plugin.DebugLogger.LogDebug($"No LLL present");
+				return LevelHelper.Levels;
+			}
 		}
 
 		public static bool IsMoonHiddenLLL(SelectableLevel level)
 		{
-			return MrovLib.SharedMethods.IsMoonHiddenLLL(level);
+			if (Plugin.LLL.IsModPresent)
+			{
+				return LLL.IsMoonHidden(level);
+			}
+			else if (LLLOldPlugin.IsTheOldLLLActive())
+			{
+				return LLLOldPlugin.IsMoonHidden(level);
+			}
+
+			return false;
 		}
 
 		public static bool IsMoonLockedLLL(SelectableLevel level)
 		{
-			return MrovLib.SharedMethods.IsMoonLockedLLL(level);
+			if (Plugin.LLL.IsModPresent)
+			{
+				return LLL.IsMooonLocked(level);
+			}
+			else if (LLLOldPlugin.IsTheOldLLLActive())
+			{
+				return LLLOldPlugin.IsMoonLocked(level);
+			}
+
+			return false;
 		}
 
 		public static List<TerminalNode> GetLevelTerminalNodes(SelectableLevel level)
 		{
-			return MrovLib.SharedMethods.GetLevelTerminalNodes(level);
+			if (Plugin.LLL.IsModPresent)
+			{
+				return LLL.GetLevelTerminalNodes(level);
+			}
+			else
+			{
+				return [];
+			}
 		}
 
 		public static object GetLLLMoonsCataloguePage()
 		{
-			return MrovLib.SharedMethods.GetLLLMoonsCataloguePage();
+			if (Plugin.LLL.IsModPresent)
+			{
+				return LLL.GetMoonsCataloguePage();
+			}
+			else if (LLLOldPlugin.IsTheOldLLLActive())
+			{
+				return LLLOldPlugin.GetMoonsCataloguePage();
+			}
+
+			return null;
+		}
+
+		public static List<SelectableLevel> GetLevelsFromLLLTag(string tag)
+		{
+			if (Plugin.LLL.IsModPresent)
+			{
+				return LLL.GetLevelsWithTag(tag);
+			}
+
+			return [];
+		}
+
+		public static LevelWeatherType GetLevelWeather(SelectableLevel level)
+		{
+			return level.currentWeather;
 		}
 	}
 }
