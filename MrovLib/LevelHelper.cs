@@ -12,7 +12,7 @@ namespace MrovLib
 
 		public static void Populate()
 		{
-			Levels = SharedMethods.GetGameLevels();
+			Levels = StartOfRound.Instance.levels.ToList();
 
 			CompanyMoon = Levels.FirstOrDefault(level => StringResolver.GetNumberlessName(level) == Defaults.CompanyLevel);
 
