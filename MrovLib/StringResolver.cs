@@ -35,6 +35,7 @@ namespace MrovLib
 					{
 						Levels.TryAdd(GetNumberlessName(level).ToLowerInvariant(), level);
 						Levels.TryAdd(GetAlphanumericName(level).ToLowerInvariant(), level);
+						Levels.TryAdd(level.sceneName.ToLowerInvariant(), level);
 						Levels.TryAdd(level.PlanetName.ToLowerInvariant(), level);
 						Levels.TryAdd(level.name.ToLowerInvariant(), level);
 					});
@@ -112,6 +113,7 @@ namespace MrovLib
 				{
 					case "all":
 					case "modded":
+					case "custom":
 					case "vanilla":
 						SelectableLevel[] resolved = ResolveStringPlaceholderLevels(level);
 
