@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -67,14 +68,16 @@ namespace MrovLib
 			return new string(regex.Replace(level.PlanetName, ""));
 		}
 
+		[Obsolete("Use ResolveStringToLevels instead")]
 		public static SelectableLevel ResolveStringToLevel(string str)
 		{
 			return StringToLevel.GetValueOrDefault(str.ToLowerInvariant());
 		}
 
+		//TODO: rework this shit a little
 		public static SelectableLevel[] ResolveStringToLevels(string str)
 		{
-			Plugin.LogDebug($"Resolving {str} into SelectableLevels");
+			Plugin.DebugLogger.LogInfo($"Resolving {str} into SelectableLevels");
 
 			if (stringToLevelsCache.Contains(str))
 			{
@@ -84,6 +87,7 @@ namespace MrovLib
 			string[] levelNames = ConvertStringToArray(str);
 
 			List<SelectableLevel> output = [];
+			List<SelectableLevel> remove = [];
 
 			if (levelNames.Count() == 0)
 			{
@@ -92,6 +96,14 @@ namespace MrovLib
 
 			foreach (string level in levelNames)
 			{
+				if (level.StartsWith("!"))
+				{
+					Plugin.LogDebug($"String {level} will be removed from final consideration!");
+
+					// recursive pass string without the !
+					remove.AddRange(ResolveStringToLevels(level.Substring(1)));
+				}
+
 				if (level.StartsWith("$"))
 				{
 					Plugin.LogDebug($"String {level} is a LLL ContentTag");
@@ -122,7 +134,7 @@ namespace MrovLib
 						output.AddRange(resolved);
 						continue;
 					default:
-						SelectableLevel selectableLevel = MrovLib.StringResolver.ResolveStringToLevel(level);
+						SelectableLevel selectableLevel = StringToLevel.GetValueOrDefault(str.ToLowerInvariant());
 
 						if (selectableLevel == null)
 						{
@@ -141,8 +153,9 @@ namespace MrovLib
 				}
 			}
 
-			SelectableLevel[] outputLevels = output.Where(listItem => listItem != null).ToArray();
+			SelectableLevel[] outputLevels = output.Where(listItem => listItem != null).Where(listItem => !remove.Contains(listItem)).ToArray();
 			stringToLevelsCache.Add(str, outputLevels);
+			Plugin.DebugLogger.LogInfo($"Resolved {str} into {string.Join(',', outputLevels.Select(l => l.PlanetName))}");
 			return outputLevels;
 		}
 
