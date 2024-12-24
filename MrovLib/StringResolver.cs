@@ -134,7 +134,7 @@ namespace MrovLib
 						output.AddRange(resolved);
 						continue;
 					default:
-						SelectableLevel selectableLevel = StringToLevel.GetValueOrDefault(str.ToLowerInvariant());
+						SelectableLevel selectableLevel = StringToLevel.GetValueOrDefault(level.ToLowerInvariant());
 
 						if (selectableLevel == null)
 						{
