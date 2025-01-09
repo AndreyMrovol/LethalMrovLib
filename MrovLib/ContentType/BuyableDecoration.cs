@@ -1,8 +1,11 @@
+using System;
+
 namespace MrovLib.ContentType
 {
-	public class BuyableDecoration : BuyableThing
+	public class BuyableDecoration : BuyableUnlockable
 	{
-		public UnlockableItem Decoration;
+		public UnlockableItem Decoration => this.Unlockable;
+
 		public bool InRotation => ContentManager.Terminal.ShipDecorSelection.Contains(Nodes.Node);
 
 		public BuyableDecoration(Terminal terminal, RelatedNodes nodes)
@@ -12,7 +15,7 @@ namespace MrovLib.ContentType
 
 			UnlockableItem decor = StartOfRound.Instance.unlockablesList.unlockables[Nodes.Node.shipUnlockableID];
 
-			Decoration = decor;
+			Unlockable = decor;
 			Price = Decoration.shopSelectionNode.itemCost;
 			Name = Decoration.unlockableName;
 		}
