@@ -3,6 +3,8 @@ namespace MrovLib.ContentType
 	public class BuyableUnlockable : BuyableThing
 	{
 		public UnlockableItem Unlockable;
+		public bool IsUnlocked => Unlockable.hasBeenUnlockedByPlayer || Unlockable.alreadyUnlocked;
+		public bool IsInStorage => Unlockable.inStorage;
 
 		public BuyableUnlockable(Terminal terminal, RelatedNodes nodes)
 			: base(terminal, nodes)
