@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MrovLib.ItemHelper;
+using MrovLib.ContentType;
 
 namespace MrovLib
 {

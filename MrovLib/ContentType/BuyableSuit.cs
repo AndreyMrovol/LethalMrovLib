@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MrovLib.ItemHelper
+namespace MrovLib.ContentType
 {
 	public class BuyableSuit : BuyableThing
 	{

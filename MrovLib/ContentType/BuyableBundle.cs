@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MrovLib.ItemHelper
+namespace MrovLib.ContentType
 {
 	public class BuyableBundle : BuyableThing
 	{

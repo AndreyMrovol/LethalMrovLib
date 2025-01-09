@@ -1,4 +1,4 @@
-namespace MrovLib.ItemHelper
+namespace MrovLib.ContentType
 {
 	public class BuyableDecoration : BuyableThing
 	{
