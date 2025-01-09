@@ -56,11 +56,6 @@ namespace MrovLib
 				Plugin.DebugLogger.LogDebug($"LLL present");
 				return LLL.GetLevels();
 			}
-			else if (LLLOldPlugin.IsTheOldLLLActive())
-			{
-				Plugin.DebugLogger.LogDebug($"LLLOld present");
-				return LLLOldPlugin.GetSelectableLevels();
-			}
 			else
 			{
 				Plugin.DebugLogger.LogDebug($"No LLL present");
@@ -74,10 +69,6 @@ namespace MrovLib
 			{
 				return LLL.IsMoonHidden(level);
 			}
-			else if (LLLOldPlugin.IsTheOldLLLActive())
-			{
-				return LLLOldPlugin.IsMoonHidden(level);
-			}
 
 			return false;
 		}
@@ -87,10 +78,6 @@ namespace MrovLib
 			if (Plugin.LLL.IsModPresent)
 			{
 				return LLL.IsMooonLocked(level);
-			}
-			else if (LLLOldPlugin.IsTheOldLLLActive())
-			{
-				return LLLOldPlugin.IsMoonLocked(level);
 			}
 
 			return false;
@@ -113,10 +100,6 @@ namespace MrovLib
 			if (Plugin.LLL.IsModPresent)
 			{
 				return LLL.GetMoonsCataloguePage();
-			}
-			else if (LLLOldPlugin.IsTheOldLLLActive())
-			{
-				return LLLOldPlugin.GetMoonsCataloguePage();
 			}
 
 			return null;

@@ -7,7 +7,7 @@ using MrovLib.Compatibility;
 namespace MrovLib
 {
 	[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-	[BepInDependency("OldLLLLib", BepInDependency.DependencyFlags.HardDependency)]
+	// [BepInDependency("OldLLLLib", BepInDependency.DependencyFlags.HardDependency)]
 	[BepInDependency("imabatby.lethallevelloader", BepInDependency.DependencyFlags.SoftDependency)]
 	public class Plugin : BaseUnityPlugin
 	{
@@ -18,7 +18,6 @@ namespace MrovLib
 		internal static ConfigEntry<bool> DebugLogging;
 
 		public static LLL LLL;
-		public static LLLOldPlugin LLLOldPlugin;
 		public static WeatherTweaks WeatherTweaks;
 
 		private void Awake()
@@ -30,9 +29,7 @@ namespace MrovLib
 
 			DebugLogger = new("MrovLib", DebugLogging);
 
-			LLL = new("imabatby.lethallevelloader", "1.2.0.0");
-			LLLOldPlugin = new("OldLLLLib");
-			// LLLOldPlugin.IsTheOldLLLActive = LLLOldPlugin.IsModPresent;
+			LLL = new("imabatby.lethallevelloader");
 
 			WeatherTweaks = new("WeatherTweaks");
 
