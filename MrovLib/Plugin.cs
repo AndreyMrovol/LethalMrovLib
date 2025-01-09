@@ -19,6 +19,7 @@ namespace MrovLib
 
 		public static LLL LLL;
 		public static WeatherTweaks WeatherTweaks;
+		public static MapperRestoreCompat MapperRestoreCompat;
 
 		private void Awake()
 		{
@@ -32,6 +33,7 @@ namespace MrovLib
 			LLL = new("imabatby.lethallevelloader");
 
 			WeatherTweaks = new("WeatherTweaks");
+			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
 
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
