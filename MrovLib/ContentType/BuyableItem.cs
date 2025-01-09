@@ -4,7 +4,11 @@ namespace MrovLib.ContentType
 	{
 		public Item Item;
 
-		private int PercentOff => ContentManager.Terminal.itemSalesPercentages[Nodes.Node.buyItemIndex];
+		private int PercentOff
+		{
+			get { return ContentManager.Terminal.itemSalesPercentages[Nodes.Node.buyItemIndex]; }
+			set { ContentManager.Terminal.itemSalesPercentages[Nodes.Node.buyItemIndex] = value; }
+		}
 		public int Discount => PercentOff != 100 ? (100 - PercentOff) : 0;
 		public float DiscountPercentage => PercentOff / 100f;
 
