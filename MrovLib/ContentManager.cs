@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MrovLib.ContentType;
 using UnityEngine;
 
@@ -13,17 +14,18 @@ namespace MrovLib
 		internal static List<TerminalKeyword> Keywords = [];
 		internal static List<TerminalKeyword> Verbs => Keywords.Where(k => k.isVerb).ToList();
 
-		// internal static TerminalKeyword RouteKeyword => Verbs.Where(v => v.name == "Route").FirstOrDefault();
-		// internal static TerminalKeyword RouteInfoKeyword => Verbs.Where(v => v.name == "Info").FirstOrDefault();
-		// internal static TerminalKeyword RouteConfirmKeyword => Verbs.Where(v => v.name == "Confirm").FirstOrDefault();
-		// internal static TerminalKeyword RouteDenyKeyword => Verbs.Where(v => v.name == "Deny").FirstOrDefault();
-		// internal static TerminalKeyword MoonsKeyword => Keywords.Where(v => v.name == "Moons").FirstOrDefault();
-		// internal static TerminalKeyword ViewKeyword => Verbs.Where(v => v.name == "View").FirstOrDefault();
-		// internal static TerminalKeyword BuyKeyword => Verbs.Where(v => v.name == "Buy").FirstOrDefault();
-		// internal static TerminalNode CancelRouteNode => RouteKeyword?.compatibleNouns[0].result.terminalOptions[0].result;
-		// internal static TerminalNode CancelPurchaseNode => BuyKeyword?.compatibleNouns[0].result.terminalOptions[1].result;
+		internal static TerminalKeyword RouteKeyword => Verbs.Where(v => v.name == "Route").FirstOrDefault();
+		internal static TerminalKeyword RouteInfoKeyword => Verbs.Where(v => v.name == "Info").FirstOrDefault();
+		internal static TerminalKeyword RouteConfirmKeyword => Verbs.Where(v => v.name == "Confirm").FirstOrDefault();
+		internal static TerminalKeyword RouteDenyKeyword => Verbs.Where(v => v.name == "Deny").FirstOrDefault();
+		internal static TerminalKeyword MoonsKeyword => Keywords.Where(v => v.name == "Moons").FirstOrDefault();
+		internal static TerminalKeyword ViewKeyword => Verbs.Where(v => v.name == "View").FirstOrDefault();
+		internal static TerminalKeyword BuyKeyword => Verbs.Where(v => v.name == "Buy").FirstOrDefault();
+		internal static TerminalNode CancelRouteNode => RouteKeyword?.compatibleNouns[0].result.terminalOptions[0].result;
+		internal static TerminalNode CancelPurchaseNode => BuyKeyword?.compatibleNouns[0].result.terminalOptions[1].result;
 
 		public static List<BuyableThing> Buyables = [];
+		public static List<Creature> Creatures = [];
 
 		public static List<BuyableItem> Items =>
 			Buyables.Where(b => b.Type == PurchaseType.Item).Select(buyable => buyable as BuyableItem).ToList();
@@ -281,6 +283,15 @@ namespace MrovLib
 			foreach (Item item in allItemsList)
 			{
 				new Scrap(item);
+			}
+
+			List<TerminalNode> creatureNodes = Terminal.enemyFiles;
+			foreach (TerminalNode node in creatureNodes)
+			{
+				Regex regex = new(@"s$");
+				Creature creature = new() { Name = regex.Replace(node.creatureName, ""), InfoNode = node };
+
+				Creatures.Add(creature);
 			}
 
 			// TODO
