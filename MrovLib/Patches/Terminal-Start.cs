@@ -10,6 +10,7 @@ namespace MrovLib.Patches
 		private static void RunMeFirst(Terminal __instance)
 		{
 			LevelHelper.Populate();
+			ContentManager.Init(__instance);
 		}
 
 		private static void Postfix(Terminal __instance)
