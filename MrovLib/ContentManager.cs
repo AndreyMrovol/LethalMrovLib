@@ -107,6 +107,12 @@ namespace MrovLib
 				Nodes.RemoveAll(node => node.name.ToLower().Contains("mapper"));
 			}
 
+			if (Plugin.ShipInventoryCompat.IsModPresent)
+			{
+				Plugin.logger.LogDebug("Forcefully removing InventoryBuy node");
+				Nodes.RemoveAll(node => node.name.ToLower() == "InventoryBuy".ToLower());
+			}
+
 			ContentManager.Nodes = Nodes;
 
 			ContentManager.Keywords = terminal.terminalNodes.allKeywords.ToList();
