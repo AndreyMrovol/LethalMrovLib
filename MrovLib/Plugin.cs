@@ -20,6 +20,7 @@ namespace MrovLib
 		public static LLL LLL;
 		public static WeatherTweaks WeatherTweaks;
 		public static MapperRestoreCompat MapperRestoreCompat;
+		public static ShipInventoryCompat ShipInventoryCompat;
 
 		private void Awake()
 		{
@@ -34,6 +35,7 @@ namespace MrovLib
 
 			WeatherTweaks = new("WeatherTweaks");
 			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
+			ShipInventoryCompat = new("ShipInventory");
 
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
