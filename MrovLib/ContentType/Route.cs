@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MrovLib.ContentType
 {
-	public class Route : ScriptableObject, IBuyable
+	public class Route : IBuyable
 	{
 		public string Name { get; set; }
 		public int Price => this.Nodes.Node != null ? this.Nodes.Node.itemCost : 0;
@@ -15,10 +15,14 @@ namespace MrovLib.ContentType
 			Level = level;
 			Nodes = nodes;
 
-			name = MrovLib.SharedMethods.GetNumberlessPlanetName(level);
-			Name = name;
+			Name = MrovLib.SharedMethods.GetNumberlessPlanetName(level);
 
 			Plugin.DebugLogger.LogWarning($"Route constructor: {level}; {nodes.Node}, {nodes.NodeConfirm}");
+		}
+
+		public override string ToString()
+		{
+			return $"{Name}";
 		}
 	}
 }
