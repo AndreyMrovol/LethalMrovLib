@@ -37,7 +37,7 @@ namespace MrovLib.ContentType
 
 		public BuyableThing(Terminal terminal, RelatedNodes nodes)
 		{
-			Plugin.DebugLogger.LogWarning($"BuyableThing constructor: {terminal}, {nodes}");
+			Plugin.DebugLogger.LogWarning($"BuyableThing constructor: {terminal}, {nodes}; type: {Type}");
 
 			Nodes = nodes;
 		}
