@@ -98,10 +98,6 @@
         <!-- <Reference Include="LethalLevelLoader">
             <HintPath>$(LibraryDirectory)/LethalLevelLoader.dll</HintPath>
         </Reference> -->
-    
-        <Reference Include="OldLLLLib">
-            <HintPath>$(LibraryDirectory)/OldLLLLib.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
 
