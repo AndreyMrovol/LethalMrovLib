@@ -73,16 +73,17 @@ namespace MrovLib
 
 		internal static void Clear()
 		{
-			Buyables.Clear();
-			Routes.Clear();
-			Vehicles.Clear();
-			Bundles.Clear();
-
-			RouteDictionary.Clear();
-
 			Nodes.Clear();
 			Keywords.Clear();
 			Terminal = null;
+
+			Buyables.Clear();
+			Creatures.Clear();
+
+			Routes.Clear();
+			Scraps.Clear();
+
+			RouteDictionary.Clear();
 		}
 
 		public static void Init(Terminal terminal)
