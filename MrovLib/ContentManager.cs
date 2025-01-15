@@ -240,15 +240,15 @@ namespace MrovLib
 					continue;
 				}
 
-				if (unlockable.unlockableType == 1 && unlockable.alwaysInStock == true)
+				if (unlockable.shopSelectionNode != null && !unlockable.alwaysInStock)
 				{
-					// Plugin.logger.LogDebug($"Unlockable, id{unlockables.IndexOf(unlockable)}");
-					ContentManager.Buyables.Add(new BuyableUnlockable(terminal, relatedNodes));
+					// decoration
+
+					ContentManager.Buyables.Add(new BuyableDecoration(terminal, relatedNodes));
 				}
 				else
 				{
-					// Plugin.logger.LogDebug($"Decoration, id{unlockables.IndexOf(unlockable)}");
-					ContentManager.Buyables.Add(new BuyableDecoration(terminal, relatedNodes));
+					ContentManager.Buyables.Add(new BuyableUnlockable(terminal, relatedNodes));
 				}
 			}
 
