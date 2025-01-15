@@ -64,7 +64,7 @@ namespace MrovLib
 
 		public static string GetAlphanumericName(SelectableLevel level)
 		{
-			Regex regex = new(@"^[0-9]+|[-_/\\\ ]");
+			Regex regex = new(@"^[0-9]+ |[^a-zA-Z]");
 			return new string(regex.Replace(level.PlanetName, ""));
 		}
 
