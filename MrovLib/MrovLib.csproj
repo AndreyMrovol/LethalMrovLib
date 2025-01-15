@@ -56,6 +56,12 @@
         <PackageReference Include="MinVer" Version="4.*" PrivateAssets="all" Private="false"/>
     </ItemGroup>
 
+    <PropertyGroup>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+        <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="LethalCompany.GameLibs.Steam" Version="*-*" Publicize="true">
             <PrivateAssets>all</PrivateAssets>
