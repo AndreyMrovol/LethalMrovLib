@@ -98,6 +98,8 @@ namespace MrovLib
 			//     Settings.firstUse = false;
 			// }
 
+			#region Get all nodes
+
 			List<TerminalNode> Nodes = Resources.FindObjectsOfTypeAll<TerminalNode>().ToList();
 			// Plugin.logger.LogWarning($"Nodes count: {Nodes.Count}");
 
@@ -116,6 +118,10 @@ namespace MrovLib
 			ContentManager.Nodes = Nodes;
 
 			ContentManager.Keywords = terminal.terminalNodes.allKeywords.ToList();
+
+			#endregion
+
+			#region Routes
 
 			List<SelectableLevel> levels = MrovLib.SharedMethods.GetGameLevels();
 
@@ -155,6 +161,10 @@ namespace MrovLib
 
 				ContentManager.Routes.Add(new Route(level, relatedNodes));
 			}
+
+			#endregion
+
+			#region Items
 
 			List<Item> buyableItems = terminal.buyableItemsList.ToList();
 
@@ -197,6 +207,9 @@ namespace MrovLib
 				ContentManager.Buyables.Add(new BuyableItem(terminal, relatedNodes));
 			}
 
+			#endregion
+			#region Unlockables, Decorations, Suits
+
 			List<UnlockableItem> unlockables = StartOfRound.Instance.unlockablesList.unlockables.ToList();
 
 			for (int i = 0; i < unlockables.Count; i++)
@@ -206,8 +219,10 @@ namespace MrovLib
 				Plugin.logger.LogDebug($"Unlockable: {unlockable.unlockableName}");
 				List<TerminalNode> possibleNodes = Nodes.Where(x => x.shipUnlockableID == unlockables.IndexOf(unlockable)).Distinct().ToList();
 
+				// super-quick check if the unlockable is a suit or decoration
 				if (unlockable.suitMaterial != null)
 				{
+					// suit
 					Plugin.logger.LogDebug($"Suit material: {unlockable.suitMaterial.name}");
 
 					RelatedNodes suitRelatedNodes =
@@ -252,6 +267,9 @@ namespace MrovLib
 				}
 			}
 
+			#endregion
+			#region Vehicles
+
 			List<BuyableVehicle> buyableVehicles = terminal.buyableVehicles.ToList();
 
 			for (int i = 0; i < buyableVehicles.Count; i++)
@@ -282,6 +300,8 @@ namespace MrovLib
 
 				ContentManager.Buyables.Add(new BuyableCar(terminal, relatedNodes));
 			}
+
+			#endregion
 
 			ContentManager.RouteDictionary.PopulateDictionary(ContentManager.Routes);
 
