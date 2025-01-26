@@ -175,12 +175,6 @@ namespace MrovLib
 
 				Plugin.logger.LogDebug($"Item: {item.itemName}");
 
-				// if (item.itemName.ToLower().Contains("mapper"))
-				// {
-				// 	Plugin.logger.LogDebug($"Skipping registering mapper");
-				// 	continue;
-				// }
-
 				Plugin.DebugLogger.LogDebug($"Item index: {buyableItems.IndexOf(item)}");
 				Plugin.DebugLogger.LogDebug($"Is terminal null: {terminal == null}");
 
