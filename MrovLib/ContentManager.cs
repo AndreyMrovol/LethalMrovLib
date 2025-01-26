@@ -227,6 +227,12 @@ namespace MrovLib
 							NodeConfirm = possibleNodes.Where(node => node.buyUnlockable).Distinct().ToList().LastOrDefault()
 						};
 
+					if (ContentManager.Suits.Any(buyable => buyable.SuitMaterial == unlockable.suitMaterial))
+					{
+						Plugin.DebugLogger.LogWarning($"Suit {unlockable.unlockableName} already exists in the buyables list - skipping!");
+						continue;
+					}
+
 					ContentManager.Buyables.Add(new BuyableSuit(terminal, suitRelatedNodes, unlockable));
 
 					continue;
