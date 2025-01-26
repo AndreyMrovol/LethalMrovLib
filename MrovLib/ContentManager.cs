@@ -195,8 +195,8 @@ namespace MrovLib
 				RelatedNodes relatedNodes =
 					new()
 					{
-						Node = possibleNodes.Distinct().ToList().FirstOrDefault(),
-						NodeConfirm = possibleNodes.Distinct().ToList().LastOrDefault()
+						Node = possibleNodes.Distinct().ToList().First(node => node.isConfirmationNode),
+						NodeConfirm = possibleNodes.Distinct().ToList().First(node => !node.isConfirmationNode)
 					};
 
 				ContentManager.Buyables.Add(new BuyableItem(terminal, relatedNodes));
