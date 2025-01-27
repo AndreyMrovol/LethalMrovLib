@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace MrovLib.ContentType
 {
@@ -6,7 +7,9 @@ namespace MrovLib.ContentType
 	{
 		public UnlockableItem Decoration => this.Unlockable;
 
-		public bool InRotation => ContentManager.Terminal.ShipDecorSelection.Contains(Nodes.Node);
+		public bool InRotation =>
+			ContentManager.Terminal.ShipDecorSelection.Contains(Nodes.Node)
+			|| ContentManager.Terminal.ShipDecorSelection.Any(node => node.name == Nodes.Node.name);
 
 		public BuyableDecoration(Terminal terminal, RelatedNodes nodes)
 			: base(terminal, nodes)

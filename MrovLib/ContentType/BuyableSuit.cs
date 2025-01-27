@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace MrovLib.ContentType
@@ -7,7 +8,9 @@ namespace MrovLib.ContentType
 		public UnlockableItem Suit;
 		public Material SuitMaterial;
 		public bool IsUnlocked => Suit.hasBeenUnlockedByPlayer || Suit.alreadyUnlocked;
-		public bool InRotation => ContentManager.Terminal.ShipDecorSelection.Contains(Nodes.Node);
+		public bool InRotation =>
+			ContentManager.Terminal.ShipDecorSelection.Contains(Nodes.Node)
+			|| ContentManager.Terminal.ShipDecorSelection.Any(node => node.name == Nodes.Node.name);
 
 		public BuyableSuit(Terminal terminal, RelatedNodes nodes, UnlockableItem unlockable)
 			: base(terminal, nodes)
