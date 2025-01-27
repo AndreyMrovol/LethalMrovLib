@@ -10,7 +10,7 @@ namespace MrovLib.ContentType
 			Type = PurchaseType.Vehicle;
 
 			Vehicle = ContentManager.Terminal.buyableVehicles[nodes.Node.buyVehicleIndex];
-			Price = Vehicle.creditsWorth;
+			Price = Nodes.Node.itemCost;
 			Name = Vehicle.vehicleDisplayName;
 
 			ContentManager.Vehicles.Add(this);
