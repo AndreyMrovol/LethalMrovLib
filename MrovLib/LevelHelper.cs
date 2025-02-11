@@ -9,12 +9,14 @@ namespace MrovLib
 		public static List<SelectableLevel> SortedLevels { get; private set; }
 
 		public static SelectableLevel CompanyMoon { get; private set; }
+		public static List<SelectableLevel> CompanyMoons { get; private set; }
 
 		public static void Populate()
 		{
 			Levels = StartOfRound.Instance.levels.ToList();
 
-			CompanyMoon = Levels.FirstOrDefault(level => StringResolver.GetNumberlessName(level) == Defaults.CompanyLevel);
+			CompanyMoons = Levels.Where(level => !level.planetHasTime && !level.spawnEnemiesAndScrap).ToList();
+			CompanyMoon = CompanyMoons.Where(level => StringResolver.GetNumberlessName(level) == Defaults.CompanyLevel).FirstOrDefault();
 
 			SortedLevels = Levels.ToList();
 			SortedLevels.Sort((a, b) => StringResolver.GetNumberlessName(a).CompareTo(StringResolver.GetNumberlessName(b)));
