@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MrovLib;
@@ -23,7 +24,14 @@ namespace MrovLib
 			"Embrion",
 			"Artifice"
 		];
+
+		[Obsolete("Use CompanyMoons instead!!!")]
 		public static readonly string CompanyLevel = "Gordion";
+
+		public static string CompanyVanillaMoon = "Gordion";
+
+		public static List<SelectableLevel> CompanyMoons => LevelHelper.CompanyMoons;
+		public static List<string> CompanyMoonNames => CompanyMoons.Select(moon => StringResolver.GetAlphanumericName(moon)).ToList();
 
 		public static bool IsVanillaLevel(SelectableLevel level)
 		{

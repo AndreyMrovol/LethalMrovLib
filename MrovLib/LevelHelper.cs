@@ -16,7 +16,7 @@ namespace MrovLib
 			Levels = StartOfRound.Instance.levels.ToList();
 
 			CompanyMoons = Levels.Where(level => !level.planetHasTime && !level.spawnEnemiesAndScrap).ToList();
-			CompanyMoon = CompanyMoons.Where(level => StringResolver.GetNumberlessName(level) == Defaults.CompanyLevel).FirstOrDefault();
+			CompanyMoon = CompanyMoons.FirstOrDefault();
 
 			SortedLevels = Levels.ToList();
 			SortedLevels.Sort((a, b) => StringResolver.GetNumberlessName(a).CompareTo(StringResolver.GetNumberlessName(b)));

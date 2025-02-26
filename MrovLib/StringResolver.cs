@@ -124,6 +124,7 @@ namespace MrovLib
 				switch (level.ToLowerInvariant())
 				{
 					case "all":
+					case "company":
 					case "modded":
 					case "custom":
 					case "vanilla":
@@ -176,22 +177,23 @@ namespace MrovLib
 		{
 			PlaceholderStringType placeholder = GetPlaceholderType(input);
 
-			SelectableLevel companyLevel = StartOfRound.Instance.levels.FirstOrDefault(level =>
-				GetNumberlessName(level).ToLowerInvariant() == Defaults.CompanyLevel.ToLowerInvariant()
-			);
+			List<SelectableLevel> companyLevels = LevelHelper.CompanyMoons;
+
+			Plugin.logger.LogInfo($"Resolving placeholder {input} into SelectableLevels");
+			Plugin.logger.LogWarning($"Company levels: {string.Join(',', companyLevels.Select(l => l.PlanetName))}");
 
 			SelectableLevel[] levels = placeholder switch
 			{
-				PlaceholderStringType.All => StartOfRound.Instance.levels.Where(level => level != companyLevel).ToArray(),
-				PlaceholderStringType.Company => [companyLevel],
+				PlaceholderStringType.All => StartOfRound.Instance.levels.Where(level => level != companyLevels.Contains(level)).ToArray(),
+				PlaceholderStringType.Company => companyLevels.ToArray(),
 				PlaceholderStringType.Vanilla
 					=> StartOfRound
-						.Instance.levels.Where(level => level != companyLevel)
+						.Instance.levels.Where(level => companyLevels.Contains(level))
 						.Where(level => Defaults.IsVanillaLevel(level))
 						.ToArray(), // check intersection of all levels and levels names that are defined in Defaults.VanillaLevels
 				PlaceholderStringType.Modded
 					=> StartOfRound
-						.Instance.levels.Where(level => level != companyLevel)
+						.Instance.levels.Where(level => level != companyLevels.Contains(level))
 						.Where(level => !Defaults.IsVanillaLevel(level))
 						.ToArray(),
 				_ => [],
