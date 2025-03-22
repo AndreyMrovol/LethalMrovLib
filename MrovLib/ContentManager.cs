@@ -110,19 +110,11 @@ namespace MrovLib
 		{
 			ContentManager.Clear();
 
-			Plugin.logger.LogDebug("Terminal Start");
 			ContentManager.Terminal = terminal;
-
-			// if (Settings.firstUse)
-			// {
-			//     Plugin.logger.LogDebug("First use: " + Settings.firstUse);
-			//     Settings.firstUse = false;
-			// }
 
 			#region Get all nodes
 
 			List<TerminalNode> Nodes = Resources.FindObjectsOfTypeAll<TerminalNode>().ToList();
-			// Plugin.logger.LogWarning($"Nodes count: {Nodes.Count}");
 
 			if (!Plugin.MapperRestoreCompat.IsModPresent)
 			{
@@ -150,8 +142,6 @@ namespace MrovLib
 			{
 				SelectableLevel level = levels[i];
 
-				// Plugin.logger.LogDebug($"Level: {level.PlanetName}");
-
 				List<TerminalNode> possibleNodes = Nodes.Where(x => x.buyRerouteToMoon == i || x.displayPlanetInfo == i).Distinct().ToList();
 
 				if (MrovLib.Plugin.LLL.IsModPresent && possibleNodes.Count > 2)
@@ -161,11 +151,9 @@ namespace MrovLib
 					possibleNodes.RemoveAll(node => !LLLNodes.Contains(node));
 				}
 
-				// Plugin.logger.LogDebug($"Possible nodes count: {possibleNodes.Count}");
-
 				for (int j = 0; j < possibleNodes.Count; j++)
 				{
-					Plugin.logger.LogDebug($"Node: {possibleNodes[j]}");
+					Plugin.DebugLogger.LogDebug($"Node: {possibleNodes[j]}");
 
 					if (possibleNodes[j] == null)
 					{
@@ -193,7 +181,7 @@ namespace MrovLib
 			{
 				Item item = buyableItems[it];
 
-				Plugin.logger.LogDebug($"Item: {item.itemName}");
+				Plugin.DebugLogger.LogDebug($"Item: {item.itemName}");
 
 				Plugin.DebugLogger.LogDebug($"Item index: {buyableItems.IndexOf(item)}");
 				Plugin.DebugLogger.LogDebug($"Is terminal null: {terminal == null}");
@@ -231,14 +219,14 @@ namespace MrovLib
 			{
 				UnlockableItem unlockable = unlockables[i];
 
-				Plugin.logger.LogDebug($"Unlockable: {unlockable.unlockableName}");
+				Plugin.DebugLogger.LogDebug($"Unlockable: {unlockable.unlockableName}");
 				List<TerminalNode> possibleNodes = Nodes.Where(x => x.shipUnlockableID == unlockables.IndexOf(unlockable)).Distinct().ToList();
 
 				// super-quick check if the unlockable is a suit or decoration
 				if (unlockable.suitMaterial != null)
 				{
 					// suit
-					Plugin.logger.LogDebug($"Suit material: {unlockable.suitMaterial.name}");
+					Plugin.DebugLogger.LogDebug($"Suit material: {unlockable.suitMaterial.name}");
 
 					RelatedNodes suitRelatedNodes =
 						new()
@@ -260,7 +248,6 @@ namespace MrovLib
 
 				if (CheckPossibleNodeNull(possibleNodes))
 				{
-					// Plugin.logger.LogDebug("Possible nodes are null");
 					continue;
 				}
 
@@ -279,7 +266,6 @@ namespace MrovLib
 				if (unlockable.shopSelectionNode != null && !unlockable.alwaysInStock)
 				{
 					// decoration
-
 					ContentManager.Buyables.Add(new BuyableDecoration(terminal, relatedNodes));
 				}
 				else
@@ -354,7 +340,7 @@ namespace MrovLib
 
 			for (int j = 0; j < possibleNodes.Count; j++)
 			{
-				Plugin.logger.LogDebug($"Node: {possibleNodes[j]}");
+				Plugin.DebugLogger.LogDebug($"Node: {possibleNodes[j]}");
 
 				// somehow call continue on the upper loop
 
@@ -367,10 +353,6 @@ namespace MrovLib
 				{
 					continue;
 				}
-
-				// Plugin.logger.LogDebug(
-				//     $"Is null: {possibleNodes[j] == null}; {possibleNodes[j].itemCost <= 0}"
-				// );
 
 				Nodes.Add(possibleNodes[j]);
 			}
