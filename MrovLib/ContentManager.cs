@@ -71,6 +71,26 @@ namespace MrovLib
 			return Buyables.Where(b => b.Nodes.Node == node || b.Nodes.NodeConfirm == node).FirstOrDefault();
 		}
 
+		public static void AddTerminalKeywords(List<TerminalKeyword> keywords)
+		{
+			List<TerminalKeyword> terminalKeywords = Terminal.terminalNodes.allKeywords.ToList();
+
+			terminalKeywords.AddRange(keywords);
+			Terminal.terminalNodes.allKeywords = terminalKeywords.ToArray();
+
+			Keywords = Terminal.terminalNodes.allKeywords.ToList();
+		}
+
+		public static void AddTerminalNodes(List<TerminalNode> nodes)
+		{
+			List<TerminalNode> terminalNodes = Terminal.terminalNodes.terminalNodes.ToList();
+
+			terminalNodes.AddRange(nodes);
+			Terminal.terminalNodes.terminalNodes = terminalNodes;
+
+			Nodes = terminalNodes;
+		}
+
 		internal static void Clear()
 		{
 			Nodes.Clear();
