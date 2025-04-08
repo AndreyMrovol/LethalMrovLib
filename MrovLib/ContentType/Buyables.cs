@@ -28,9 +28,9 @@ namespace MrovLib.ContentType
 
 	public class BuyableThing : IBuyable
 	{
-		public string Name { get; set; }
+		public virtual string Name { get; set; }
 
-		public int Price { get; set; }
+		public virtual int Price { get; set; }
 
 		public PurchaseType Type;
 		public RelatedNodes Nodes;
