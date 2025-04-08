@@ -308,6 +308,12 @@ namespace MrovLib
 				ContentManager.Buyables.Add(new BuyableCar(terminal, relatedNodes));
 			}
 
+			if (Plugin.ItemWeightsCompat.IsModPresent)
+			{
+				Plugin.logger.LogDebug("Forcefully updating Cruiser nodes");
+				Terminal.LoadNewNodeIfAffordable(ContentManager.Vehicles.First().Nodes.Node);
+			}
+
 			#endregion
 
 			ContentManager.RouteDictionary.PopulateDictionary(ContentManager.Routes);
