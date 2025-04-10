@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -311,7 +312,19 @@ namespace MrovLib
 			if (Plugin.ItemWeightsCompat.IsModPresent)
 			{
 				Plugin.logger.LogDebug("Forcefully updating Cruiser nodes");
-				Terminal.LoadNewNodeIfAffordable(ContentManager.Vehicles.First().Nodes.Node);
+
+				try
+				{
+					for (int i = 0; i < ContentManager.Vehicles.Count; i++)
+					{
+						BuyableCar vehicle = ContentManager.Vehicles[i];
+						ContentManager.Terminal.LoadNewNodeIfAffordable(vehicle.Nodes.Node);
+					}
+				}
+				catch (Exception ex)
+				{
+					Plugin.logger.LogWarning($"Error while updating Cruiser nodes: {ex.Message}");
+				}
 			}
 
 			#endregion
