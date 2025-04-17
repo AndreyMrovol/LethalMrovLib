@@ -351,6 +351,9 @@ namespace MrovLib
 			// vanilla bundle: survival kit
 
 			// new BuyableBundle(terminal, null, "Survival Kit", ["flashlight", "shovel"]);
+
+
+			EventManager.ContentManagerReady.Invoke();
 		}
 
 		internal static bool CheckPossibleNodeNull(List<TerminalNode> possibleNodes)
