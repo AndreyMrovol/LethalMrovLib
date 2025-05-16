@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using MrovLib.Compatibility;
+using UnityEngine.SceneManagement;
 
 namespace MrovLib
 {
@@ -27,6 +28,8 @@ namespace MrovLib
 		{
 			logger = Logger;
 			harmony.PatchAll();
+
+			SceneManager.sceneLoaded += Patches.SceneManager.OnSceneLoaded;
 
 			LocalConfigManager.Init(Config);
 
