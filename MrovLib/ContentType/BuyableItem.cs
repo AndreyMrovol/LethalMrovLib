@@ -12,6 +12,16 @@ namespace MrovLib.ContentType
 		public int Discount => PercentOff != 100 ? (100 - PercentOff) : 0;
 		public float DiscountPercentage => PercentOff / 100f;
 
+		public override int Price
+		{
+			get => base.Price;
+			set
+			{
+				base.Price = value;
+				Item.creditsWorth = value;
+			}
+		}
+
 		public BuyableItem(Terminal terminal, RelatedNodes nodes)
 			: base(terminal, nodes)
 		{

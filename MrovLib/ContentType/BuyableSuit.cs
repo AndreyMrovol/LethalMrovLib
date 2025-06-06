@@ -8,6 +8,20 @@ namespace MrovLib.ContentType
 		public UnlockableItem Suit;
 		public Material SuitMaterial;
 
+		public override int Price
+		{
+			get => base.Price;
+			set
+			{
+				base.Price = value;
+
+				if (Suit.shopSelectionNode != null)
+				{
+					Suit.shopSelectionNode.itemCost = value;
+				}
+			}
+		}
+
 		public bool IsUnlocked => Suit.hasBeenUnlockedByPlayer || Suit.alreadyUnlocked;
 		public bool InRotation
 		{

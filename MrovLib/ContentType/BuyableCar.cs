@@ -4,7 +4,15 @@ namespace MrovLib.ContentType
 	{
 		public BuyableVehicle Vehicle;
 
-		public override int Price => Nodes.Node.itemCost;
+		public override int Price
+		{
+			get => base.Price;
+			set
+			{
+				base.Price = value;
+				Nodes.Node.itemCost = value;
+			}
+		}
 
 		public BuyableCar(Terminal terminal, RelatedNodes nodes)
 			: base(terminal, nodes)
