@@ -9,6 +9,12 @@ namespace MrovLib.Patches
 		internal static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 		{
 			var currentScene = scene.name;
+
+			if (currentScene is "InitSceneLaunchOptions")
+			{
+				EventManager.LaunchOptionsLoaded.Invoke();
+			}
+
 			if (currentScene is "MainMenu")
 			{
 				if (WasLoadedBefore)
