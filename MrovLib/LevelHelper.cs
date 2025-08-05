@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +12,8 @@ namespace MrovLib
 		public static SelectableLevel CompanyMoon { get; private set; }
 		public static List<SelectableLevel> CompanyMoons { get; private set; }
 
+		public static string LongestPlanetName { get; private set; }
+
 		public static void Populate()
 		{
 			Levels = StartOfRound.Instance.levels.ToList();
@@ -20,6 +23,23 @@ namespace MrovLib
 
 			SortedLevels = Levels.ToList();
 			SortedLevels.Sort((a, b) => StringResolver.GetNumberlessName(a).CompareTo(StringResolver.GetNumberlessName(b)));
+
+			LongestPlanetName = Levels
+				.Select(level => StringResolver.GetNumberlessName(level))
+				.OrderByDescending(name => name.Length)
+				.FirstOrDefault();
+		}
+
+		public static SelectableLevel GetRandomLevel()
+		{
+			if (Levels == null || Levels.Count == 0)
+			{
+				Plugin.logger.LogError("Levels list is null or empty, cannot get a random level.");
+				return null;
+			}
+
+			int randomIndex = new Random().Next(Levels.Count);
+			return Levels[randomIndex];
 		}
 
 		public static void Reset(StartOfRound startOfRound)
