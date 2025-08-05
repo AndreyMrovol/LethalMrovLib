@@ -42,8 +42,8 @@ namespace ConsoleTables
 
 		public IList<string> Formats { get; private set; }
 
-		public static readonly HashSet<Type> NumericTypes = new HashSet<Type>
-		{
+		public static readonly HashSet<Type> NumericTypes =
+		[
 			typeof(int),
 			typeof(double),
 			typeof(decimal),
@@ -55,7 +55,7 @@ namespace ConsoleTables
 			typeof(ushort),
 			typeof(uint),
 			typeof(float)
-		};
+		];
 
 		public ConsoleTable(params string[] columns)
 			: this(new ConsoleTableOptions { Columns = new List<string>(columns) }) { }
@@ -63,7 +63,7 @@ namespace ConsoleTables
 		public ConsoleTable(ConsoleTableOptions options)
 		{
 			Options = options ?? throw new ArgumentNullException("options");
-			Rows = new List<object[]>();
+			Rows = [];
 			Columns = new List<object>(options.Columns);
 		}
 
@@ -201,8 +201,7 @@ namespace ConsoleTables
 
 		private void SetFormats(List<int> columnLengths, List<string> columnAlignment)
 		{
-			var allLines = new List<object[]>();
-			allLines.Add(Columns.ToArray());
+			var allLines = new List<object[]> { Columns.ToArray() };
 			allLines.AddRange(Rows);
 
 			Formats = allLines
@@ -417,7 +416,7 @@ namespace ConsoleTables
 
 	public class ConsoleTableOptions
 	{
-		public IEnumerable<string> Columns { get; set; } = new List<string>();
+		public IEnumerable<string> Columns { get; set; } = [];
 		public bool EnableCount { get; set; } = true;
 
 		/// <summary>
