@@ -77,12 +77,12 @@ namespace MrovLib
 		//TODO: rework this shit a little
 		public static SelectableLevel[] ResolveStringToLevels(string str)
 		{
-			Plugin.DebugLogger.LogInfo($"Resolving {str} into SelectableLevels");
-
 			if (stringToLevelsCache.Contains(str))
 			{
 				return stringToLevelsCache.Get(str);
 			}
+
+			Plugin.DebugLogger.LogInfo($"Resolving {str} into SelectableLevels");
 
 			string[] levelNames = ConvertStringToArray(str);
 
