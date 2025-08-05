@@ -135,6 +135,16 @@ namespace MrovLib
 			}
 		}
 
+		public List<T> Keys
+		{
+			get { return dictionary.Keys.ToList(); }
+		}
+
+		public List<int> Values
+		{
+			get { return dictionary.Values.ToList(); }
+		}
+
 		public int RandomIndex()
 		{
 			Random random = new();
