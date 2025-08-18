@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 
 namespace MrovLib.Patches
 {
-	internal static class SceneManager
+	internal static class SceneManagerPatches
 	{
 		private static bool WasLoadedBefore = false;
 
