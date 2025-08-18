@@ -15,7 +15,7 @@ namespace MrovLib
 		internal static Logger DebugLogger;
 		internal static Harmony harmony = new(PluginInfo.PLUGIN_GUID);
 
-		internal static ConfigEntry<bool> DebugLogging;
+		internal static ConfigEntry<LoggingType> DebugLogging;
 
 		public static LLL LLL;
 		public static WeatherTweaks WeatherTweaks;
@@ -28,11 +28,11 @@ namespace MrovLib
 			logger = Logger;
 			harmony.PatchAll();
 
-			SceneManager.sceneLoaded += Patches.SceneManager.OnSceneLoaded;
+			SceneManager.sceneLoaded += Patches.SceneManagerPatches.OnSceneLoaded;
 
 			LocalConfigManager.Init(Config);
 
-			DebugLogger = new("MrovLib", DebugLogging);
+			DebugLogger = new("MrovLib", DebugLogging.Value);
 
 			LLL = new("imabatby.lethallevelloader");
 
@@ -58,12 +58,12 @@ namespace MrovLib
 
 	internal class LocalConfigManager : MrovLib.ConfigManager
 	{
-		public static ConfigEntry<bool> Debug { get; private set; }
+		public static ConfigEntry<LoggingType> Debug { get; private set; }
 
 		private LocalConfigManager(ConfigFile config)
 			: base(config)
 		{
-			Debug = configFile.Bind("General", "Debug", false, "Enable debug logging");
+			Debug = configFile.Bind("General", "Logging levels", LoggingType.Basic, "Enable debug logging");
 
 			Plugin.DebugLogging = Debug;
 		}
