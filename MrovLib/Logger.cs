@@ -96,5 +96,41 @@ namespace MrovLib
 		{
 			Log(LogLevel.Message, data);
 		}
+
+		[Obsolete("Use LogInfo(string data) instead.")]
+		public void LogInfo(object data)
+		{
+			Log(LogLevel.Info, data.ToString());
+		}
+
+		[Obsolete("Use LogWarning(string data) instead.")]
+		public void LogWarning(object data)
+		{
+			Log(LogLevel.Warning, data.ToString());
+		}
+
+		[Obsolete("Use LogError(string data) instead.")]
+		public void LogError(object data)
+		{
+			Log(LogLevel.Error, data.ToString());
+		}
+
+		[Obsolete("Use LogDebug(string data) instead.")]
+		public void LogDebug(object data)
+		{
+			Log(LogLevel.Debug, data.ToString());
+		}
+
+		[Obsolete("Use LogFatal(string data) instead.")]
+		public void LogFatal(object data)
+		{
+			Log(LogLevel.Fatal, data.ToString());
+		}
+
+		[Obsolete("Use LogMessage(string data) instead.")]
+		public void LogMessage(object data)
+		{
+			Log(LogLevel.Message, data.ToString());
+		}
 	}
 }
