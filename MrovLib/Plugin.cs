@@ -32,7 +32,7 @@ namespace MrovLib
 
 			LocalConfigManager.Init(Config);
 
-			DebugLogger = new("MrovLib", DebugLogging.Value);
+			DebugLogger = new("Debug", LoggingType.Debug);
 
 			LLL = new("imabatby.lethallevelloader");
 

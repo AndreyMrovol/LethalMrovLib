@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 
@@ -13,8 +14,8 @@ namespace MrovLib
 
 	public class Logger
 	{
-		public virtual string ModName => "MrovLib";
 		private string _name;
+		public virtual string ModName => "MrovLib";
 		private ManualLogSource _logSource = BepInEx.Logging.Logger.CreateLogSource($"MrovLib");
 
 		private LoggingType _defaultLoggingType;
@@ -27,24 +28,11 @@ namespace MrovLib
 
 		[Obsolete("Use Logger(string SourceName, LoggingType defaultLoggingType) instead.")]
 		public Logger(string name)
-		{
-			_defaultLoggingType = LoggingType.Debug;
-			_name = name == ModName ? "" : name;
-		}
+			: this(name, LoggingType.Debug) { }
 
 		[Obsolete("Use Logger(string SourceName, LoggingType defaultLoggingType) instead.")]
 		public Logger(string name, ConfigEntry<bool> enabled = null)
-		{
-			_defaultLoggingType = LoggingType.Developer;
-			_name = name == ModName ? "" : name;
-		}
-
-		[Obsolete("Use Logger(string SourceName, LoggingType defaultLoggingType) instead.")]
-		public Logger(string name, ConfigEntry<LoggingType> defaultType)
-		{
-			_defaultLoggingType = defaultType.Value;
-			_name = name == ModName ? "" : name;
-		}
+			: this(name, LoggingType.Debug) { }
 
 		public virtual bool ShouldLog(LoggingType type)
 		{
@@ -97,6 +85,8 @@ namespace MrovLib
 			Log(LogLevel.Message, data);
 		}
 
+		#region Obsolete definitions
+
 		[Obsolete("Use LogInfo(string data) instead.")]
 		public void LogInfo(object data)
 		{
@@ -134,3 +124,4 @@ namespace MrovLib
 		}
 	}
 }
+		#endregion
