@@ -14,11 +14,16 @@ namespace MrovLib
 
 	public class Logger
 	{
-		private string _name;
-		public virtual string ModName => "MrovLib";
-		private ManualLogSource _logSource = BepInEx.Logging.Logger.CreateLogSource($"MrovLib");
+		protected virtual string _name { get; set; }
+		public virtual string ModName { get; set; } = "MrovLib";
+		protected ManualLogSource _logSource = BepInEx.Logging.Logger.CreateLogSource($"MrovLib");
+		public virtual ManualLogSource LogSource
+		{
+			get => _logSource;
+			protected set => _logSource = value;
+		}
 
-		private LoggingType _defaultLoggingType;
+		private LoggingType _defaultLoggingType { get; set; }
 
 		public Logger(string SourceName, LoggingType defaultLoggingType = LoggingType.Basic)
 		{
@@ -43,7 +48,7 @@ namespace MrovLib
 		{
 			if (ShouldLog(type))
 			{
-				_logSource.Log(level, $"[{_name}] {data}");
+				LogSource.Log(level, $"[{_name}] {data}");
 			}
 		}
 
@@ -51,7 +56,7 @@ namespace MrovLib
 		{
 			if (ShouldLog(_defaultLoggingType))
 			{
-				_logSource.Log(level, $"[{_name}] {data}");
+				LogSource.Log(level, $"[{_name}] {data}");
 			}
 		}
 
