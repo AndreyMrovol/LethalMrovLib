@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 namespace MrovLib
 {
 	[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-	[BepInDependency("imabatby.lethallevelloader", BepInDependency.DependencyFlags.SoftDependency)]
 	public class Plugin : BaseUnityPlugin
 	{
 		internal static ManualLogSource logger;
@@ -34,13 +33,6 @@ namespace MrovLib
 
 			DebugLogger = new("Debug", LoggingType.Debug);
 
-			LLL = new("imabatby.lethallevelloader");
-
-			WeatherTweaks = new("WeatherTweaks");
-			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
-			ShipInventoryCompat = new("ShipInventory");
-			ItemWeightsCompat = new("DarthLilo.ItemWeights");
-
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
@@ -48,11 +40,25 @@ namespace MrovLib
 
 			EventManager.LobbyDisabled.AddListener(StringResolver.Reset);
 			EventManager.LobbyDisabled.AddListener(LevelHelper.Reset);
+
+			EventManager.MainMenuLoaded.AddListener(StartCompats);
 		}
 
 		internal static void LogDebug(string log)
 		{
 			DebugLogger.LogDebug(log);
+		}
+
+		public void StartCompats()
+		{
+			Plugin.logger.LogDebug("Starting compatibility patches...");
+
+			LLL = new("imabatby.lethallevelloader");
+
+			WeatherTweaks = new("WeatherTweaks");
+			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
+			ShipInventoryCompat = new("ShipInventory");
+			ItemWeightsCompat = new("DarthLilo.ItemWeights");
 		}
 	}
 
