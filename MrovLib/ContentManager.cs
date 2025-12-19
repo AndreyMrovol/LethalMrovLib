@@ -191,6 +191,12 @@ namespace MrovLib
 
 				Plugin.DebugLogger.LogDebug($"Possible nodes count: {possibleNodes.Count}");
 
+				if (possibleNodes.Count == 0)
+				{
+					Plugin.DebugLogger.LogWarning($"No possible terminal nodes found for item {item.itemName} - skipping!");
+					continue;
+				}
+
 				for (int i = 0; i < possibleNodes.Count; i++)
 				{
 					Plugin.DebugLogger.LogDebug($"Node: {possibleNodes[i]}");
