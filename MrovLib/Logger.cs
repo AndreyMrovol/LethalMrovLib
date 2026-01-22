@@ -14,13 +14,13 @@ namespace MrovLib
 
 	public class Logger
 	{
-		protected virtual string _name { get; set; }
+		public virtual string _name { get; set; }
 		public virtual string ModName { get; set; } = "MrovLib";
-		protected ManualLogSource _logSource = BepInEx.Logging.Logger.CreateLogSource($"MrovLib");
+		public ManualLogSource _logSource = BepInEx.Logging.Logger.CreateLogSource($"MrovLib");
 		public virtual ManualLogSource LogSource
 		{
 			get => _logSource;
-			protected set => _logSource = value;
+			set => _logSource = value;
 		}
 
 		private LoggingType _defaultLoggingType { get; set; }
