@@ -42,6 +42,11 @@ namespace MrovLib
 			return Levels[randomIndex];
 		}
 
+		public static bool IsVanillaLevel(SelectableLevel level)
+		{
+			return Defaults.IsVanillaLevel(level);
+		}
+
 		public static void Reset(StartOfRound startOfRound)
 		{
 			Plugin.LogDebug("LevelHelper.Reset called");
