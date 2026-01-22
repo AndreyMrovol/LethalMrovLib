@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 namespace MrovLib
 {
 	[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+	[BepInDependency("imabatby.lethallevelloader", BepInDependency.DependencyFlags.SoftDependency)]
 	public class Plugin : BaseUnityPlugin
 	{
 		internal static ManualLogSource logger;
