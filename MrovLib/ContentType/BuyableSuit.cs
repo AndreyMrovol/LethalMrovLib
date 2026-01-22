@@ -5,6 +5,7 @@ namespace MrovLib.ContentType
 {
 	public class BuyableSuit : BuyableThing
 	{
+		public UnlockableSuit UnlockableSuit;
 		public UnlockableItem Suit;
 		public Material SuitMaterial;
 
