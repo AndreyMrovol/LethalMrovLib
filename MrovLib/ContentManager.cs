@@ -7,21 +7,23 @@ using UnityEngine;
 
 namespace MrovLib
 {
-	public class ContentManager
+	public static class ContentManager
 	{
 		internal static Terminal Terminal;
 		internal static List<TerminalNode> Nodes = [];
 
 		internal static List<TerminalKeyword> Keywords = [];
 		internal static List<TerminalKeyword> Verbs => Keywords.Where(k => k.isVerb).ToList();
+		internal static Dictionary<TerminalKeyword, TerminalKeyword> DefaultVerbs =>
+			Keywords.Distinct().ToDictionary(v => v, v => v.defaultVerb);
 
-		internal static TerminalKeyword RouteKeyword => Verbs.Where(v => v.name == "Route").FirstOrDefault();
-		internal static TerminalKeyword RouteInfoKeyword => Verbs.Where(v => v.name == "Info").FirstOrDefault();
-		internal static TerminalKeyword RouteConfirmKeyword => Verbs.Where(v => v.name == "Confirm").FirstOrDefault();
-		internal static TerminalKeyword RouteDenyKeyword => Verbs.Where(v => v.name == "Deny").FirstOrDefault();
-		internal static TerminalKeyword MoonsKeyword => Keywords.Where(v => v.name == "Moons").FirstOrDefault();
-		internal static TerminalKeyword ViewKeyword => Verbs.Where(v => v.name == "View").FirstOrDefault();
-		internal static TerminalKeyword BuyKeyword => Verbs.Where(v => v.name == "Buy").FirstOrDefault();
+		internal static TerminalKeyword RouteKeyword => Verbs.FirstOrDefault(v => v.name == "Route");
+		internal static TerminalKeyword RouteInfoKeyword => Verbs.FirstOrDefault(v => v.name == "Info");
+		internal static TerminalKeyword RouteConfirmKeyword => Verbs.FirstOrDefault(v => v.name == "Confirm");
+		internal static TerminalKeyword RouteDenyKeyword => Verbs.FirstOrDefault(v => v.name == "Deny");
+		internal static TerminalKeyword MoonsKeyword => Keywords.FirstOrDefault(v => v.name == "Moons");
+		internal static TerminalKeyword ViewKeyword => Verbs.FirstOrDefault(v => v.name == "View");
+		internal static TerminalKeyword BuyKeyword => Verbs.FirstOrDefault(v => v.name == "Buy");
 		internal static TerminalNode CancelRouteNode => RouteKeyword?.compatibleNouns[0].result.terminalOptions[0].result;
 		internal static TerminalNode CancelPurchaseNode => BuyKeyword?.compatibleNouns[0].result.terminalOptions[1].result;
 
@@ -47,29 +49,31 @@ namespace MrovLib
 
 		public static RouteDictionary RouteDictionary = new();
 
+		internal static List<UnlockableSuit> UnlockableSuits = [];
+
 		public static BuyableThing GetBuyable(Item item)
 		{
-			return Buyables.Where(b => b.Name == item.itemName).FirstOrDefault();
+			return Buyables.FirstOrDefault(b => b.Name == item.itemName);
 		}
 
 		public static BuyableThing GetBuyable(UnlockableItem unlockable)
 		{
-			return Buyables.Where(b => b.Name == unlockable.unlockableName).FirstOrDefault();
+			return Buyables.FirstOrDefault(b => b.Name == unlockable.unlockableName);
 		}
 
 		public static BuyableThing GetBuyable(BuyableVehicle vehicle)
 		{
-			return Buyables.Where(b => b.Name == vehicle.vehicleDisplayName).FirstOrDefault();
+			return Buyables.FirstOrDefault(b => b.Name == vehicle.vehicleDisplayName);
 		}
 
 		public static BuyableThing GetBuyable(string name)
 		{
-			return Buyables.Where(b => b.Name.ToLowerInvariant() == name.ToLowerInvariant()).FirstOrDefault();
+			return Buyables.FirstOrDefault(b => b.Name.ToLowerInvariant() == name.ToLowerInvariant());
 		}
 
 		public static BuyableThing GetBuyable(TerminalNode node)
 		{
-			return Buyables.Where(b => b.Nodes.Node == node || b.Nodes.NodeConfirm == node).FirstOrDefault();
+			return Buyables.FirstOrDefault(b => b.Nodes.Node == node || b.Nodes.NodeConfirm == node);
 		}
 
 		public static void AddTerminalKeywords(List<TerminalKeyword> keywords)
@@ -132,6 +136,8 @@ namespace MrovLib
 			ContentManager.Nodes = Nodes;
 
 			ContentManager.Keywords = terminal.terminalNodes.allKeywords.ToList();
+
+			UnlockableSuits = GameObject.FindObjectsOfType<UnlockableSuit>(true).ToList();
 
 			#endregion
 
@@ -248,7 +254,12 @@ namespace MrovLib
 						continue;
 					}
 
-					ContentManager.Buyables.Add(new BuyableSuit(terminal, suitRelatedNodes, unlockable));
+					ContentManager.Buyables.Add(
+						new BuyableSuit(terminal, suitRelatedNodes, unlockable)
+						{
+							UnlockableSuit = UnlockableSuits.FirstOrDefault(s => s.suitMaterial == unlockable.suitMaterial)
+						}
+					);
 
 					continue;
 				}
