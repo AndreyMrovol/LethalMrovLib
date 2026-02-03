@@ -104,6 +104,22 @@ namespace MrovLib
 					remove.AddRange(ResolveStringToLevels(level.Substring(1)));
 				}
 
+				if (level.StartsWith("£"))
+				{
+					Plugin.LogDebug($"String {level} is a DawnLib NamespacedKey");
+
+					if (!Plugin.DawnLibCompat.IsModPresent)
+					{
+						Plugin.LogDebug($"DawnLib is not present, skipping");
+						continue;
+					}
+
+					List<SelectableLevel> resolved = Plugin.DawnLibCompat.GetLevelsFromTags(level.Substring(1));
+					Plugin.LogDebug($"String {level} resolved to selectable levels: {string.Join(',', resolved.Select(l => l.PlanetName))}");
+					output.AddRange(resolved);
+					continue;
+				}
+
 				if (level.StartsWith("$"))
 				{
 					Plugin.LogDebug($"String {level} is a LLL ContentTag");

@@ -9,6 +9,7 @@ namespace MrovLib
 {
 	[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 	[BepInDependency("imabatby.lethallevelloader", BepInDependency.DependencyFlags.SoftDependency)]
+	[BepInDependency("TeamXiaolan.DawnLib", BepInDependency.DependencyFlags.SoftDependency)]
 	public class Plugin : BaseUnityPlugin
 	{
 		internal static ManualLogSource logger;
@@ -18,6 +19,7 @@ namespace MrovLib
 		internal static ConfigEntry<LoggingType> DebugLogging;
 
 		public static LLL LLL;
+		public static DawnLib DawnLibCompat;
 		public static WeatherTweaks WeatherTweaks;
 		public static MapperRestoreCompat MapperRestoreCompat;
 		public static ShipInventoryCompat ShipInventoryCompat;
@@ -55,6 +57,7 @@ namespace MrovLib
 			Plugin.logger.LogDebug("Starting compatibility patches...");
 
 			LLL = new("imabatby.lethallevelloader");
+			DawnLibCompat = new("com.github.teamxiaolan.dawnlib");
 
 			WeatherTweaks = new("WeatherTweaks");
 			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
