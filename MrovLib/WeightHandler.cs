@@ -10,6 +10,7 @@ namespace MrovLib
 	public class WeightHandler<T>
 	{
 		private Dictionary<T, int> dictionary = [];
+		public virtual Logger logger => Plugin.DebugLogger;
 
 		public void Add(T key, int value)
 		{
@@ -128,6 +129,7 @@ namespace MrovLib
 						return 1;
 					}
 
+					logger.LogError($"Weights sum to 0 or negative: [{string.Join(", ", dictionary.Select(kv => kv.Key + "=" + kv.Value))}]");
 					throw new InvalidOperationException("Sum cannot be 0 or negative");
 				}
 
@@ -161,7 +163,7 @@ namespace MrovLib
 				sum += pair.Value;
 				if (roll <= sum)
 				{
-					Plugin.DebugLogger.LogWarning($"Picked {pair.Key} with a roll of {roll} out of {Sum}");
+					logger.LogWarning($"Picked {pair.Key} with a roll of {roll} out of {Sum}");
 					return pair.Key;
 				}
 			}
