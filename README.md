@@ -1,5 +1,13 @@
 # MrovLib
 
+<div style="display: flex; gap: 0.8em; flex-wrap: wrap; margin-bottom: 2em;">
+  <img src="https://img.shields.io/codefactor/grade/github/andreymrovol/LethalMrovLib?style=flat&logo=codefactor&logoColor=white&color=E58A00&cacheSeconds=1200" alt="CodeFactor Grade">
+  <img src="https://img.shields.io/thunderstore/dt/mrov/MrovLib?style=flat&logo=thunderstore&logoColor=white&color=E58A00&cacheSeconds=1200" alt="Thunderstore Downloads">
+  <img src="https://img.shields.io/github/actions/workflow/status/AndreyMrovol/LethalMrovLib/build.yml?branch=main&style=flat&logo=github&logoColor=white&color=E58A00&cacheSeconds=1200" alt="GitHub Workflow Status">
+  <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/andreymrovol/LethalMrovLib?style=flat&logo=github&logoColor=white&color=E58A00&cacheSeconds=1200">
+
+  </div>
+
 A library of useful utilities for modding Lethal Company.
 
 ## Using MrovLib
