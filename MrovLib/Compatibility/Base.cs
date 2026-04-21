@@ -4,10 +4,13 @@ using BepInEx.Bootstrap;
 
 namespace MrovLib.Compatibility
 {
+	[Obsolete("CompatibilityBase is deprecated, use CompatibilityHandler instead for better version handling and main menu loading.")]
 	public class CompatibilityBase
 	{
 		public string ModGUID { get; internal set; }
 		public string ModVersion { get; internal set; }
+
+		private bool MatchExactVersion { get; set; } = true;
 
 		private bool? _enabled;
 
@@ -21,15 +24,24 @@ namespace MrovLib.Compatibility
 			Plugin.DebugLogger.LogInfo($"CompatibilityBase Constructor called, GUID: {ModGUID}, Version: {ModVersion}");
 		}
 
+		public void SetToMatchExactVersion(bool setting)
+		{
+			MatchExactVersion = setting;
+			// reset enabled to force recheck with new setting
+			_enabled = null;
+			Plugin.DebugLogger.LogInfo($"SetToMatchExactVersion called, setting: {setting}");
+		}
+
 		public bool IsModPresent
 		{
 			get
 			{
-				// Plugin.LogDebug($"IsModPresent called, GUID: {ModGUID}, Enabled: {_enabled}, Version: {ModVersion}");
+				Plugin.LogDebug($"IsModPresent called, GUID: {ModGUID}, Enabled: {_enabled}, Version: {ModVersion}");
 
 				if (_enabled == null)
 				{
 					_enabled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(ModGUID);
+					Plugin.DebugLogger.LogInfo($"Mod presence checked: {_enabled}");
 				}
 
 				if (ModVersion != null && (bool)_enabled)
@@ -38,7 +50,7 @@ namespace MrovLib.Compatibility
 
 					if (Chainloader.PluginInfos.TryGetValue(ModGUID, out BepInEx.PluginInfo pluginInfo))
 					{
-						// Plugin.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
+						Plugin.LogDebug($"Checking version {pluginInfo.Metadata.Version} against {ModVersion}");
 						// make sure the biggest version (X.0.0.0) matches
 
 						if (pluginInfo.Metadata.Version.Major != new Version(ModVersion).Major)
@@ -47,7 +59,14 @@ namespace MrovLib.Compatibility
 						}
 						else
 						{
-							_enabled = pluginInfo.Metadata.Version >= new Version(ModVersion);
+							if (MatchExactVersion)
+							{
+								_enabled = pluginInfo.Metadata.Version == new Version(ModVersion);
+							}
+							else
+							{
+								_enabled = pluginInfo.Metadata.Version >= new Version(ModVersion);
+							}
 						}
 					}
 				}
