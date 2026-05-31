@@ -58,13 +58,13 @@ namespace ConsoleTables
 		];
 
 		public ConsoleTable(params string[] columns)
-			: this(new ConsoleTableOptions { Columns = new List<string>(columns) }) { }
+			: this(new ConsoleTableOptions { Columns = [.. columns] }) { }
 
 		public ConsoleTable(ConsoleTableOptions options)
 		{
 			Options = options ?? throw new ArgumentNullException("options");
 			Rows = [];
-			Columns = new List<object>(options.Columns);
+			Columns = [.. options.Columns];
 		}
 
 		public ConsoleTable AddColumn(IEnumerable<string> names)
@@ -366,10 +366,15 @@ namespace ConsoleTables
 				.Select(
 					(t, i) =>
 						Rows.Select(x => x[i])
-							.Union(new[] { Columns[i] })
+							.Union([Columns[i]])
 							.Where(x => x != null)
-							.Select(x => x.ToString().ToCharArray().Sum(c => c > 127 ? 2 : 1))
-							.Max()
+							.Max(x =>
+							{
+								var str = x.ToString();
+								// Remove XML tags
+								var withoutTags = Regex.Replace(str, @"<[^>]+>", "");
+								return withoutTags.ToCharArray().Sum(c => c > 127 ? 2 : 1);
+							})
 				)
 				.ToList();
 			return columnLengths;
