@@ -11,7 +11,7 @@
         
         <RootNamespace>$(AssemblyName)</RootNamespace>
         
-        <PackageId>MrovLib</PackageId>
+        <PackageId>mrov.$(AssemblyName)</PackageId>
         <BepInExPluginGuid>$(PackageId)</BepInExPluginGuid>
     </PropertyGroup>
 
