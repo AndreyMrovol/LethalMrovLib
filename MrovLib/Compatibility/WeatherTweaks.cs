@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace MrovLib.Compatibility
 {
-	public class WeatherTweaks(string guid, string version = null) : CompatibilityBase(guid, version)
+	public class WeatherTweaksCompat(string guid, string version = null) : CompatibilityBase(guid, version)
 	{
 		internal static MethodInfo GetPlanetCurrentWeather;
 
