@@ -25,13 +25,18 @@ namespace MrovLib
 			"Artifice"
 		];
 
-		[Obsolete("Use CompanyMoons instead!!!")]
+		public static readonly List<string> VanillaHiddenMoons = ["Liquidation", "Gordion", "Artifice"];
+
+		[Obsolete("Use LevelHelper.CompanyMoons instead.")]
 		public static readonly string CompanyLevel = "Gordion";
 
 		public static string CompanyVanillaMoon = "Gordion";
 
+		[Obsolete("Use LevelHelper.CompanyMoons instead.")]
 		public static List<SelectableLevel> CompanyMoons => LevelHelper.CompanyMoons;
-		public static List<string> CompanyMoonNames => CompanyMoons.Select(moon => StringResolver.GetAlphanumericName(moon)).ToList();
+
+		[Obsolete("Use LevelHelper.CompanyMoonNames instead.")]
+		public static List<string> CompanyMoonNames => LevelHelper.CompanyMoonNames;
 
 		public static bool IsVanillaLevel(SelectableLevel level)
 		{
