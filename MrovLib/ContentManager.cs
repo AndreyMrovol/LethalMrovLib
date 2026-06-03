@@ -158,6 +158,30 @@ namespace MrovLib
 					possibleNodes.RemoveAll(node => !LLLNodes.Contains(node));
 				}
 
+				if (Plugin.DawnLibCompat.IsModPresent)
+				{
+					// check if the moon is a dawnlib moon
+					bool isDawnLibMoon = Plugin.DawnLibCompat.IsDawnLibLevel(level);
+
+					// this is because dawnlib is doing weirdness ¯\_(ツ)_/¯
+					if (isDawnLibMoon)
+					{
+						Plugin.DebugLogger.LogDebug(
+							$"This is a Dawnlib moon, applying special node filtering for routes, nodes: {possibleNodes.Count} ({string.Join(", ", possibleNodes.Select(node => node.name))})"
+						);
+
+						RelatedNodes relatedDawnNodes =
+							new()
+							{
+								Node = possibleNodes.Where(node => node.name.Contains("Reciept")).Distinct().ToList().FirstOrDefault(),
+								NodeConfirm = possibleNodes.Where(node => node.name.Contains("Route")).Distinct().ToList().LastOrDefault()
+							};
+
+						ContentManager.Routes.Add(new Route(level, relatedDawnNodes));
+						continue;
+					}
+				}
+
 				for (int j = 0; j < possibleNodes.Count; j++)
 				{
 					Plugin.DebugLogger.LogDebug($"Node: {possibleNodes[j]}");
