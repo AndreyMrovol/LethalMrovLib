@@ -11,6 +11,7 @@ namespace MrovLib
 
 		public static SelectableLevel CompanyMoon { get; private set; }
 		public static List<SelectableLevel> CompanyMoons { get; private set; }
+		public static List<string> CompanyMoonNames => CompanyMoons.Select(moon => StringResolver.GetAlphanumericName(moon)).ToList();
 
 		public static string LongestPlanetName { get; private set; }
 
@@ -45,6 +46,45 @@ namespace MrovLib
 		public static bool IsVanillaLevel(SelectableLevel level)
 		{
 			return Defaults.IsVanillaLevel(level);
+		}
+
+		public static bool IsHidden(SelectableLevel level)
+		{
+			if (Plugin.DawnLibCompat.IsModPresent)
+			{
+				bool hidden = Plugin.DawnLibCompat.GetLevelStatus(level).hidden;
+				return hidden;
+			}
+			else if (Plugin.LLL.IsModPresent)
+			{
+				return SharedMethods.IsMoonHiddenLLL(level);
+			}
+			else if (Defaults.VanillaHiddenMoons.Contains(StringResolver.GetNumberlessName(level)))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public static bool IsLocked(SelectableLevel level)
+		{
+			if (Plugin.DawnLibCompat.IsModPresent)
+			{
+				bool locked = Plugin.DawnLibCompat.GetLevelStatus(level).locked;
+				return locked;
+			}
+			else if (Plugin.LLL.IsModPresent)
+			{
+				return SharedMethods.IsMoonLockedLLL(level);
+			}
+			else
+			{
+				// vanilla doesn't have locked levels
+				return false;
+			}
 		}
 
 		public static void Reset(StartOfRound startOfRound)
