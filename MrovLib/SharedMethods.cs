@@ -14,7 +14,7 @@ namespace MrovLib
 
 			if (Plugin.WeatherTweaks.IsModPresent)
 			{
-				weather = WeatherTweaks.CurrentWeather(level);
+				weather = WeatherTweaksCompat.CurrentWeather(level);
 			}
 			else if (Plugin.LLL.IsModPresent)
 			{
@@ -37,7 +37,7 @@ namespace MrovLib
 
 		public static string GetAlphanumericName(SelectableLevel level)
 		{
-			Regex regex = new(@"^[0-9]+|[-_/\\\ ]");
+			Regex regex = new(@"^(?:\-|[0-9])+|[-_/\\\ ]");
 			return new string(regex.Replace(level.PlanetName, ""));
 		}
 
