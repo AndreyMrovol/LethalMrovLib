@@ -12,7 +12,7 @@
         <RootNamespace>$(AssemblyName)</RootNamespace>
         
         <PackageId>mrov.$(AssemblyName)</PackageId>
-        <BepInExPluginGuid>$(PackageId)</BepInExPluginGuid>
+        <BepInExPluginGuid>$(AssemblyName)</BepInExPluginGuid>
     </PropertyGroup>
 
     <PropertyGroup>
