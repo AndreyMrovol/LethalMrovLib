@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MrovLib;
+using MrovLib.ContentType;
 using UnityEngine;
 
 namespace MrovLib
@@ -25,7 +26,8 @@ namespace MrovLib
 			"Artifice"
 		];
 
-		public static readonly List<string> VanillaHiddenMoons = ["Liquidation", "Gordion", "Artifice"];
+		public static readonly List<string> IgnoreLevels = ["Gordion", "Liquidation"];
+		public static readonly List<string> VanillaHiddenMoons = ["Liquidation", "Gordion", "Artifice", "Embrion"];
 
 		[Obsolete("Use LevelHelper.CompanyMoons instead.")]
 		public static readonly string CompanyLevel = "Gordion";
