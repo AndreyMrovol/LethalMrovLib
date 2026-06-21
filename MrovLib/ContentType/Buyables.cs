@@ -44,7 +44,7 @@ namespace MrovLib.ContentType
 
 		public override string ToString()
 		{
-			return $"{Name}";
+			return $"{Name} ({Type})";
 		}
 	}
 }
