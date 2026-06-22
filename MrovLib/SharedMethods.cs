@@ -12,20 +12,14 @@ namespace MrovLib
 		{
 			string weather;
 
-			if (Plugin.WeatherTweaks.IsModPresent)
+			if (Plugin.WeatherRegistryCompat.IsModPresent)
 			{
-				weather = WeatherTweaksCompat.CurrentWeather(level);
-			}
-			else if (Plugin.LLL.IsModPresent)
-			{
-				weather = LLL.GetWeather(level);
+				weather = Plugin.WeatherRegistryCompat.GetWeather(level);
 			}
 			else
 			{
 				weather = level.currentWeather.ToString();
 			}
-
-			Plugin.LogDebug($"Weather: {weather}");
 
 			return weather == "None" ? "" : weather;
 		}
