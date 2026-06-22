@@ -173,8 +173,8 @@ namespace MrovLib
 						RelatedNodes relatedDawnNodes =
 							new()
 							{
-								Node = possibleNodes.Where(node => node.name.Contains("Reciept")).Distinct().ToList().FirstOrDefault(),
-								NodeConfirm = possibleNodes.Where(node => node.name.Contains("Route")).Distinct().ToList().LastOrDefault()
+								Node = possibleNodes.Where(node => node.name.Contains("Route")).Distinct().ToList().LastOrDefault(),
+								NodeConfirm = possibleNodes.Where(node => node.name.Contains("Reciept")).Distinct().ToList().FirstOrDefault(),
 							};
 
 						ContentManager.Routes.Add(new Route(level, relatedDawnNodes));
