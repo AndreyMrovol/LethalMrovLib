@@ -48,6 +48,7 @@
     </ItemGroup>
 
     <ItemGroup>        
+        <PackageReference Include="mrov-WeatherRegistry" Version="*-*" Publicize="true" PrivateAssets="all"/>
         <PackageReference Include="mrov-WeatherTweaks" Version="*-*" Publicize="true" PrivateAssets="all"/>
         <PackageReference Include="DarthLilo-ItemWeights" Version="*-*" Publicize="true" PrivateAssets="all"/>
 
