@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Dawn;
 
 namespace MrovLib.Compatibility
 {
-	public class DawnLib(string guid, string version = null) : CompatibilityBase(guid, version)
+	public class DawnLib(string guid, string version = null) : CompatibilityHandler(guid, version)
 	{
 		private List<SelectableLevel> _dawnLibLevels = null;
+
 		public List<SelectableLevel> DawnLibMoons
 		{
 			get
@@ -38,6 +40,7 @@ namespace MrovLib.Compatibility
 				.ToList();
 		}
 
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 		public (bool locked, bool hidden) GetLevelStatus(SelectableLevel level)
 		{
 			return level.GetDawnInfo().DawnPurchaseInfo.PurchasePredicate.CanPurchase() switch
@@ -49,6 +52,7 @@ namespace MrovLib.Compatibility
 			};
 		}
 
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 		public bool IsDawnLibLevel(SelectableLevel level)
 		{
 			return DawnLibMoons.Contains(level);

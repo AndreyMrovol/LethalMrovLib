@@ -44,18 +44,6 @@ namespace MrovLib
 			EventManager.LobbyDisabled.AddListener(StringResolver.Reset);
 			EventManager.LobbyDisabled.AddListener(LevelHelper.Reset);
 
-			EventManager.MainMenuLoaded.AddListener(StartCompats);
-		}
-
-		internal static void LogDebug(string log)
-		{
-			DebugLogger.LogDebug(log);
-		}
-
-		public void StartCompats()
-		{
-			Plugin.logger.LogDebug("Starting compatibility patches...");
-
 			LLL = new("imabatby.lethallevelloader");
 			DawnLibCompat = new("com.github.teamxiaolan.dawnlib");
 
@@ -63,6 +51,11 @@ namespace MrovLib
 			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
 			ShipInventoryCompat = new("ShipInventory");
 			ItemWeightsCompat = new("DarthLilo.ItemWeights");
+		}
+
+		internal static void LogDebug(string log)
+		{
+			DebugLogger.LogDebug(log);
 		}
 	}
 

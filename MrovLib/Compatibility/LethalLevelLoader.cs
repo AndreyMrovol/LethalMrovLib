@@ -6,7 +6,7 @@ using LethalLevelLoader;
 
 namespace MrovLib.Compatibility
 {
-	public class LLL(string guid, string version = null) : CompatibilityBase(guid, version)
+	public class LLL(string guid, string version = null) : CompatibilityHandler(guid, version)
 	{
 		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 		public static string GetWeather(SelectableLevel level)
