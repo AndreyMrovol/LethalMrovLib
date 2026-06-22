@@ -21,6 +21,7 @@ namespace MrovLib
 		public static LLL LLL;
 		public static DawnLib DawnLibCompat;
 		public static WeatherTweaksCompat WeatherTweaks;
+		public static WeatherRegistryCompat WeatherRegistryCompat;
 		public static MapperRestoreCompat MapperRestoreCompat;
 		public static ShipInventoryCompat ShipInventoryCompat;
 		public static ItemWeightsCompat ItemWeightsCompat;
@@ -48,6 +49,7 @@ namespace MrovLib
 			DawnLibCompat = new("com.github.teamxiaolan.dawnlib");
 
 			WeatherTweaks = new("WeatherTweaks");
+			WeatherRegistryCompat = new("mrov.WeatherRegistry");
 			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
 			ShipInventoryCompat = new("ShipInventory");
 			ItemWeightsCompat = new("DarthLilo.ItemWeights");
