@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MrovLib
 {
@@ -12,6 +13,8 @@ namespace MrovLib
 		public static SelectableLevel CompanyMoon { get; private set; }
 		public static List<SelectableLevel> CompanyMoons { get; private set; }
 		public static List<string> CompanyMoonNames => CompanyMoons.Select(moon => StringResolver.GetAlphanumericName(moon)).ToList();
+
+		public static List<string> VanillaOrder = [];
 
 		public static string LongestPlanetName { get; private set; }
 
@@ -29,6 +32,62 @@ namespace MrovLib
 				.Select(level => StringResolver.GetNumberlessName(level))
 				.OrderByDescending(name => name.Length)
 				.FirstOrDefault();
+		}
+
+		internal static void ParseVanillaMoonOrder()
+		{
+			var moonCatalogueText = ContentManager.MoonsKeyword.specialKeywordResult.displayText;
+			if (string.IsNullOrWhiteSpace(moonCatalogueText))
+			{
+				Plugin.logger.LogWarning("Moon catalogue text is null or empty, cannot parse vanilla moon order.");
+				return;
+			}
+
+			List<string> order = [];
+			HashSet<string> seen = [];
+
+			// Matches lines like:
+			// * Experimentation [planetTime]
+			Regex lineRegex = new(@"^\*\s+(?<name>[^\r\n\[]+)", RegexOptions.Multiline | RegexOptions.Compiled);
+
+			foreach (Match match in lineRegex.Matches(moonCatalogueText))
+			{
+				string name = match.Groups["name"].Value.Trim();
+
+				// Remove inline comments / extra text after spacing.
+				int commentIndex = name.IndexOf("   //", StringComparison.Ordinal);
+				if (commentIndex >= 0)
+				{
+					name = name[..commentIndex].Trim();
+				}
+
+				if (string.IsNullOrWhiteSpace(name))
+				{
+					continue;
+				}
+
+				// Keep company building out of the moon ordering.
+				if (string.Equals(name, "The Company building", StringComparison.OrdinalIgnoreCase))
+				{
+					continue;
+				}
+
+				if (seen.Add(name))
+				{
+					order.Add(name);
+				}
+			}
+
+			VanillaOrder = order;
+
+			Levels = Levels
+				.OrderBy(level =>
+				{
+					string numberlessName = StringResolver.GetNumberlessName(level);
+					int index = VanillaOrder.FindIndex(name => string.Equals(name, numberlessName, StringComparison.OrdinalIgnoreCase));
+					return index >= 0 ? index : int.MaxValue;
+				})
+				.ToList();
 		}
 
 		public static SelectableLevel GetRandomLevel()
