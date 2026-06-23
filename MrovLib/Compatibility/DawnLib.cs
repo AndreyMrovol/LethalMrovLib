@@ -28,6 +28,7 @@ namespace MrovLib.Compatibility
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 		public List<SelectableLevel> GetLevelsFromTags(string inputTag)
 		{
 			return MrovLib
