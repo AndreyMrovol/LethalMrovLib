@@ -9,7 +9,6 @@ namespace MrovLib.Patches
 		[HarmonyPostfix]
 		private static void RunMeFirst(Terminal __instance)
 		{
-			EventManager.ContentManagerReady.AddListener(LevelHelper.ParseVanillaMoonOrder);
 			LevelHelper.Populate();
 
 			ContentManager.Init(__instance);

@@ -36,6 +36,12 @@ namespace MrovLib
 
 		internal static void ParseVanillaMoonOrder()
 		{
+			VanillaOrder = [];
+			if (!ContentManager.IsInitialized)
+			{
+				throw new InvalidOperationException("ContentManager is not initialized. Cannot parse vanilla moon order.");
+			}
+
 			var moonCatalogueText = ContentManager.MoonsKeyword.specialKeywordResult.displayText;
 			if (string.IsNullOrWhiteSpace(moonCatalogueText))
 			{

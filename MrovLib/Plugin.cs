@@ -33,6 +33,8 @@ namespace MrovLib
 
 			SceneManager.sceneLoaded += Patches.SceneManagerPatches.OnSceneLoaded;
 
+			EventManager.ContentManagerReady.AddListener(LevelHelper.ParseVanillaMoonOrder);
+
 			LocalConfigManager.Init(Config);
 
 			DebugLogger = new("Debug", LoggingType.Debug);
