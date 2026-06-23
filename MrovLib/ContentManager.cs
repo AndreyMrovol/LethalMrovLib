@@ -10,6 +10,8 @@ namespace MrovLib
 	public static class ContentManager
 	{
 		internal static Terminal Terminal;
+		internal static bool IsInitialized { get; private set; } = false;
+
 		internal static List<TerminalNode> Nodes = [];
 
 		internal static List<TerminalKeyword> Keywords = [];
@@ -113,6 +115,7 @@ namespace MrovLib
 
 		public static void Init(Terminal terminal)
 		{
+			IsInitialized = false;
 			ContentManager.Clear();
 
 			ContentManager.Terminal = terminal;
@@ -394,6 +397,7 @@ namespace MrovLib
 			// new BuyableBundle(terminal, null, "Survival Kit", ["flashlight", "shovel"]);
 
 
+			IsInitialized = true;
 			EventManager.ContentManagerReady.Invoke();
 		}
 
