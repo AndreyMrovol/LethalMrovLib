@@ -115,7 +115,12 @@ namespace MrovLib
 
 		public static bool IsHidden(SelectableLevel level)
 		{
-			if (Plugin.DawnLibCompat.IsModPresent)
+			if (Plugin.ConstellationsCompat.IsModPresent)
+			{
+				return SharedMethods.IsMoonHiddenLLL(level);
+			}
+
+			if (Plugin.DawnLibCompat.IsModPresent && Plugin.DawnLibCompat.IsDawnLibLevel(level))
 			{
 				bool hidden = Plugin.DawnLibCompat.GetLevelStatus(level).hidden;
 				return hidden;
@@ -136,7 +141,12 @@ namespace MrovLib
 
 		public static bool IsLocked(SelectableLevel level)
 		{
-			if (Plugin.DawnLibCompat.IsModPresent)
+			if (Plugin.ConstellationsCompat.IsModPresent)
+			{
+				return SharedMethods.IsMoonLockedLLL(level);
+			}
+
+			if (Plugin.DawnLibCompat.IsModPresent && Plugin.DawnLibCompat.IsDawnLibLevel(level))
 			{
 				bool locked = Plugin.DawnLibCompat.GetLevelStatus(level).locked;
 				return locked;
@@ -150,6 +160,16 @@ namespace MrovLib
 				// vanilla doesn't have locked levels
 				return false;
 			}
+		}
+
+		public static string GetNumberlessName(SelectableLevel level)
+		{
+			return StringResolver.GetNumberlessName(level);
+		}
+
+		public static string GetAlphanumericName(SelectableLevel level)
+		{
+			return StringResolver.GetAlphanumericName(level);
 		}
 
 		public static void Reset(StartOfRound startOfRound)

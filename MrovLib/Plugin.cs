@@ -25,6 +25,7 @@ namespace MrovLib
 		public static MapperRestoreCompat MapperRestoreCompat;
 		public static ShipInventoryCompat ShipInventoryCompat;
 		public static ItemWeightsCompat ItemWeightsCompat;
+		public static LethalConstellationsCompatibility ConstellationsCompat;
 
 		private void Awake()
 		{
@@ -55,6 +56,7 @@ namespace MrovLib
 			MapperRestoreCompat = new("butterystancakes.lethalcompany.restoremapper");
 			ShipInventoryCompat = new("ShipInventory");
 			ItemWeightsCompat = new("DarthLilo.ItemWeights");
+			ConstellationsCompat = new(LethalConstellations.Plugin.PluginInfo.PLUGIN_GUID);
 		}
 
 		internal static void LogDebug(string log)
