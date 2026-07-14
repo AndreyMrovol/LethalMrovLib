@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -42,6 +43,12 @@ namespace MrovLib
 
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+
+			DateTime now = DateTime.Now;
+			if (now.Month == 7 && now.Day == 15)
+			{
+				Logger.LogFatal($"Happy birthday, mrov!");
+			}
 
 			DebugLogger.LogWarning($"Debug logs enabled!");
 
