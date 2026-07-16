@@ -26,8 +26,9 @@ namespace MrovLib
 			"Artifice"
 		];
 
-		public static readonly List<string> IgnoreLevels = ["Gordion", "Liquidation"];
+		public static readonly List<string> IgnoreLevels = ["Gordion"];
 		public static readonly List<string> VanillaHiddenMoons = ["Liquidation", "Gordion", "Artifice", "Embrion"];
+		public static readonly List<int> InaccessibleVanillaMoons = [11];
 
 		[Obsolete("Use LevelHelper.CompanyMoons instead.")]
 		public static readonly string CompanyLevel = "Gordion";
