@@ -17,6 +17,11 @@ namespace MrovLib.Patches
 		private static void Postfix(Terminal __instance)
 		{
 			MrovLib.EventManager.TerminalStart.Invoke(__instance);
+
+			if (PlanetChecker.ContainsRepeats)
+			{
+				Plugin.logger.LogFatal("Duplicate planet names detected - this will cause issues with the game!");
+			}
 		}
 	}
 }

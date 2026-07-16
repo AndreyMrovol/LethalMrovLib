@@ -20,7 +20,7 @@ namespace MrovLib
 
 		public static void Populate()
 		{
-			Levels = StartOfRound.Instance.levels.ToList();
+			Levels = StartOfRound.Instance.levels.ToList().Where(level => !Defaults.InaccessibleVanillaMoons.Contains(level.levelID)).ToList();
 
 			CompanyMoons = Levels.Where(level => !level.planetHasTime && !level.spawnEnemiesAndScrap).ToList();
 			CompanyMoon = CompanyMoons.FirstOrDefault();
