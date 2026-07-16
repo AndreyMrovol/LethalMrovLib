@@ -148,11 +148,14 @@ namespace MrovLib
 
 			List<SelectableLevel> levels = LevelHelper.Levels;
 
-			for (int i = 0; i < levels.Count; i++)
+			foreach (SelectableLevel level in levels)
 			{
-				SelectableLevel level = levels[i];
+				int levelID = level.levelID;
 
-				List<TerminalNode> possibleNodes = Nodes.Where(x => x.buyRerouteToMoon == i || x.displayPlanetInfo == i).Distinct().ToList();
+				List<TerminalNode> possibleNodes = Nodes
+					.Where(x => x.buyRerouteToMoon == levelID || x.displayPlanetInfo == levelID)
+					.Distinct()
+					.ToList();
 
 				if (MrovLib.Plugin.LLL.IsModPresent && possibleNodes.Count > 2)
 				{
