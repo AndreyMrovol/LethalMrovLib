@@ -146,7 +146,7 @@ namespace MrovLib
 
 			#region Routes
 
-			List<SelectableLevel> levels = MrovLib.SharedMethods.GetGameLevels();
+			List<SelectableLevel> levels = LevelHelper.Levels;
 
 			for (int i = 0; i < levels.Count; i++)
 			{
