@@ -10,6 +10,8 @@ namespace MrovLib.Patches
 		private static void Prefix()
 		{
 			Plugin.DebugLogger.LogDebug("StartOfRound.Start prefix");
+
+			Plugin.DebugLogger.LogDebug($"Is instance? {StartOfRound.Instance != null}");
 		}
 
 		[HarmonyPostfix]
@@ -17,6 +19,7 @@ namespace MrovLib.Patches
 		private static void Postfix()
 		{
 			Plugin.DebugLogger.LogDebug("StartOfRound.Start postfix");
+			Plugin.DebugLogger.LogDebug($"Is instance? {StartOfRound.Instance != null}");
 		}
 
 		[HarmonyPrefix]
@@ -24,6 +27,7 @@ namespace MrovLib.Patches
 		private static void AwakePrefix()
 		{
 			Plugin.DebugLogger.LogDebug("StartOfRound.Awake prefix");
+			Plugin.DebugLogger.LogDebug($"Is instance? {StartOfRound.Instance != null}");
 		}
 
 		[HarmonyPostfix]
@@ -31,6 +35,7 @@ namespace MrovLib.Patches
 		private static void AwakePostfix()
 		{
 			Plugin.DebugLogger.LogDebug("StartOfRound.Awake postfix");
+			Plugin.DebugLogger.LogDebug($"Is instance? {StartOfRound.Instance != null}");
 		}
 	}
 }
