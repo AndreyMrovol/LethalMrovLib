@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -41,20 +42,10 @@ namespace MrovLib
 			return ship.GetComponentsInChildren<GrabbableObject>().ToList();
 		}
 
+		[Obsolete("Use LevelHelper.Levels instead.")]
 		public static List<SelectableLevel> GetGameLevels()
 		{
-			Plugin.DebugLogger.LogDebug("GetGameLevels called");
-
-			if (Plugin.LLL.IsModPresent)
-			{
-				Plugin.DebugLogger.LogDebug($"LLL present");
-				return LLL.GetLevels();
-			}
-			else
-			{
-				Plugin.DebugLogger.LogDebug($"No LLL present");
-				return LevelHelper.Levels;
-			}
+			return LevelHelper.Levels;
 		}
 
 		public static bool IsMoonHiddenLLL(SelectableLevel level)
