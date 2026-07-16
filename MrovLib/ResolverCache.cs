@@ -4,7 +4,7 @@ namespace MrovLib
 {
 	public class ResolverCache<T>
 	{
-		private Dictionary<string, T> _cache = new Dictionary<string, T>();
+		private Dictionary<string, T> _cache = [];
 
 		public void Add(string key, T value)
 		{
