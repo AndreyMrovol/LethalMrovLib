@@ -120,7 +120,7 @@ namespace MrovLib
 				return SharedMethods.IsMoonHiddenLLL(level);
 			}
 
-			if (Plugin.DawnLibCompat.IsModPresent && Plugin.DawnLibCompat.IsDawnLibLevel(level))
+			if (Plugin.DawnLibCompat.IsModPresent)
 			{
 				bool hidden = Plugin.DawnLibCompat.GetLevelStatus(level).hidden;
 				return hidden;
@@ -146,7 +146,7 @@ namespace MrovLib
 				return SharedMethods.IsMoonLockedLLL(level);
 			}
 
-			if (Plugin.DawnLibCompat.IsModPresent && Plugin.DawnLibCompat.IsDawnLibLevel(level))
+			if (Plugin.DawnLibCompat.IsModPresent)
 			{
 				bool locked = Plugin.DawnLibCompat.GetLevelStatus(level).locked;
 				return locked;
